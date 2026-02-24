@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rev.io Weekly Sales Forecast</title>
+<style>
+  :root {
+    --navy: #1B2E4A;
+    --navy-light: #243b5e;
+    --green: #4CC94C;
+    --green-dim: #3a9e3a;
+    --white: #ffffff;
+    --gray: #8a9bb5;
+    --red: #e74c3c;
+    --yellow: #f1c40f;
+    --blue: #3498db;
+    --purple: #9b59b6;
+    --orange: #e67e22;
+    --card-bg: #22384f;
+    --border: #2d4a6a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Segoe UI', Calibri, Arial, sans-serif;
+    min-height: 100vh;
+    padding: 0;
+  }
+  .header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+    border-bottom: 3px solid var(--green);
+    padding: 24px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .header h1 span { color: var(--green); }
+  .header .meta {
+    text-align: right;
+    color: var(--gray);
+    font-size: 14px;
+  }
+  .header .meta .date { font-size: 16px; color: var(--white); font-weight: 600; }
+  .container { max-width: 1400px; margin: 0 auto; padding: 30px 40px; }
+
+  /* Summary cards */
+  .summary-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+  .summary-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+  .summary-card .label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray);
+    margin-bottom: 8px;
+  }
+  .summary-card .value {
+    font-size: 32px;
+    font-weight: 700;
+  }
+  .summary-card .sub {
+    font-size: 13px;
+    color: var(--gray);
+    margin-top: 4px;
+  }
+  .summary-card.billing .value { color: var(--blue); }
+  .summary-card.psa .value { color: var(--green); }
+  .summary-card.payments .value { color: var(--orange); }
+  .summary-card.cyber .value { color: var(--purple); }
+  .summary-card.odin .value { color: var(--yellow); }
+  .summary-card.total .value { color: var(--white); }
+  .summary-card.total { border-color: var(--green); }
+
+  /* Product sections */
+  .product-section {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+  .product-header {
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .product-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .product-header .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .product-header .totals {
+    display: flex;
+    gap: 24px;
+    font-size: 14px;
+    color: var(--gray);
+  }
+  .product-header .totals strong { color: var(--white); font-size: 18px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th {
+    background: rgba(0,0,0,0.15);
+    padding: 10px 16px;
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray);
+    font-weight: 600;
+  }
+  th.right, td.right { text-align: right; }
+  td {
+    padding: 10px 16px;
+    font-size: 14px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  tr:hover td { background: rgba(255,255,255,0.03); }
+  .stage-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .stage-commit { background: rgba(76,201,76,0.2); color: var(--green); }
+  .stage-best { background: rgba(52,152,219,0.2); color: var(--blue); }
+  .stage-pipeline { background: rgba(241,196,15,0.2); color: var(--yellow); }
+  .stage-discovery { background: rgba(155,89,182,0.2); color: var(--purple); }
+  .stage-other { background: rgba(255,255,255,0.1); color: var(--gray); }
+
+  .footer {
+    text-align: center;
+    padding: 30px;
+    color: var(--gray);
+    font-size: 13px;
+  }
+  .footer a { color: var(--green); text-decoration: none; }
+
+  /* Bar chart */
+  .bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 120px;
+    padding: 16px 24px 24px;
+  }
+  .bar-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .bar {
+    width: 100%;
+    max-width: 60px;
+    border-radius: 4px 4px 0 0;
+    min-height: 2px;
+    transition: height 0.3s;
+  }
+  .bar-label {
+    font-size: 11px;
+    color: var(--gray);
+  }
+  .bar-value {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .no-data {
+    padding: 60px;
+    text-align: center;
+    color: var(--gray);
+    font-size: 16px;
+  }
+  .no-data .icon { font-size: 48px; margin-bottom: 16px; }
+
+  @media (max-width: 768px) {
+    .header { padding: 16px 20px; flex-direction: column; gap: 8px; }
+    .container { padding: 16px 20px; }
+    .summary-row { grid-template-columns: repeat(2, 1fr); }
+    th, td { padding: 8px 10px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Rev.io <span>Weekly Forecast</span></h1>
+  <div class="meta">
+    <div class="date" id="report-date">Loading...</div>
+    <div id="report-week">—</div>
+  </div>
+</div>
+
+<div class="container">
+  <!-- Summary Cards -->
+  <div class="summary-row" id="summary-cards">
+    <div class="summary-card total">
+      <div class="label">Total Pipeline</div>
+      <div class="value" id="total-pipeline">—</div>
+      <div class="sub" id="total-weighted">weighted: —</div>
+    </div>
+    <div class="summary-card billing">
+      <div class="label">Billing</div>
+      <div class="value" id="sum-billing">—</div>
+      <div class="sub" id="cnt-billing">— opps</div>
+    </div>
+    <div class="summary-card psa">
+      <div class="label">PSA</div>
+      <div class="value" id="sum-psa">—</div>
+      <div class="sub" id="cnt-psa">— opps</div>
+    </div>
+    <div class="summary-card payments">
+      <div class="label">Payments</div>
+      <div class="value" id="sum-payments">—</div>
+      <div class="sub" id="cnt-payments">— opps</div>
+    </div>
+    <div class="summary-card cyber">
+      <div class="label">Cyber Protect</div>
+      <div class="value" id="sum-cyber">—</div>
+      <div class="sub" id="cnt-cyber">— opps</div>
+    </div>
+    <div class="summary-card odin">
+      <div class="label">Odin</div>
+      <div class="value" id="sum-odin">—</div>
+      <div class="sub" id="cnt-odin">— opps</div>
+    </div>
+  </div>
+
+  <!-- Product Sections -->
+  <div id="product-sections"></div>
+</div>
+
+<div class="footer">
+  Updated <span id="updated-at">—</span> · Generated by <a href="#">Robin 🦸🏻‍♂️</a>
+</div>
+
+<script>
+// Forecast data — injected by build script
+const FORECAST_DATA = null; // Will be replaced by build script
+
+const PRODUCT_COLORS = {
+  'Billing': '#3498db',
+  'PSA': '#4CC94C',
+  'PSA 2.0': '#4CC94C',
+  'Payments': '#e67e22',
+  'Cyber Protect': '#9b59b6',
+  'Odin': '#f1c40f'
+};
+
+const STAGE_CLASSES = {
+  'Verbal Commit': 'commit',
+  'Proposal/Price Quote': 'best',
+  'Demo Delivered': 'pipeline',
+  'Discovery': 'discovery',
+  'Negotiate': 'commit',
+  'Contract Sent': 'commit'
+};
+
+function fmt(n) {
+  if (n >= 1000) return '$' + (n/1000).toFixed(1) + 'K';
+  return '$' + n.toLocaleString();
+}
+
+function render(data) {
+  if (!data || !data.records) {
+    document.getElementById('product-sections').innerHTML = '<div class="no-data"><div class="icon">📊</div>No forecast data loaded yet.<br>Awaiting Salesforce sync.</div>';
+    return;
+  }
+
+  const now = new Date(data.generated || Date.now());
+  document.getElementById('report-date').textContent = now.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric', year:'numeric'});
+  document.getElementById('report-week').textContent = 'Week of ' + getMonday(now).toLocaleDateString('en-US', {month:'short', day:'numeric'});
+  document.getElementById('updated-at').textContent = now.toLocaleString('en-US', {month:'short', day:'numeric', hour:'numeric', minute:'2-digit'});
+
+  // Group by product
+  const products = {};
+  const productOrder = ['Billing', 'PSA', 'PSA 2.0', 'Payments', 'Cyber Protect', 'Odin'];
+
+  data.records.forEach(r => {
+    const pt = r.Product_Type__c || 'Other';
+    if (!products[pt]) products[pt] = [];
+    products[pt].push(r);
+  });
+
+  // Merge PSA + PSA 2.0
+  if (products['PSA 2.0'] && products['PSA']) {
+    products['PSA'] = products['PSA'].concat(products['PSA 2.0']);
+    delete products['PSA 2.0'];
+  } else if (products['PSA 2.0']) {
+    products['PSA'] = products['PSA 2.0'];
+    delete products['PSA 2.0'];
+  }
+
+  // Summary
+  let totalMRR = 0, totalWeighted = 0;
+  const sums = {};
+  Object.entries(products).forEach(([pt, recs]) => {
+    const mrr = recs.reduce((s,r) => s + (r.Amount||0), 0);
+    const w = recs.reduce((s,r) => s + (r.Amount||0) * (r.Probability||0)/100, 0);
+    totalMRR += mrr;
+    totalWeighted += w;
+    sums[pt] = { mrr, weighted: w, count: recs.length };
+  });
+
+  document.getElementById('total-pipeline').textContent = fmt(totalMRR) + ' MRR';
+  document.getElementById('total-weighted').textContent = 'weighted: ' + fmt(totalWeighted);
+
+  ['billing','psa','payments','cyber','odin'].forEach(key => {
+    const mapping = { billing:'Billing', psa:'PSA', payments:'Payments', cyber:'Cyber Protect', odin:'Odin' };
+    const pt = mapping[key];
+    const s = sums[pt] || { mrr:0, count:0 };
+    document.getElementById('sum-' + key).textContent = fmt(s.mrr);
+    document.getElementById('cnt-' + key).textContent = s.count + ' opps';
+  });
+
+  // Product sections
+  const sectionsEl = document.getElementById('product-sections');
+  sectionsEl.innerHTML = '';
+
+  const displayOrder = ['Billing', 'PSA', 'Payments', 'Cyber Protect', 'Odin'];
+  const allPts = [...new Set([...displayOrder, ...Object.keys(products)])];
+
+  allPts.filter(pt => products[pt]).forEach(pt => {
+    const recs = products[pt].sort((a,b) => (b.Amount||0) - (a.Amount||0));
+    const color = PRODUCT_COLORS[pt] || '#95a5a6';
+    const mrr = recs.reduce((s,r) => s + (r.Amount||0), 0);
+    const weighted = recs.reduce((s,r) => s + (r.Amount||0) * (r.Probability||0)/100, 0);
+
+    // Group by stage for summary
+    const byStage = {};
+    recs.forEach(r => {
+      const s = r.StageName || 'Unknown';
+      if (!byStage[s]) byStage[s] = { count:0, mrr:0 };
+      byStage[s].count++;
+      byStage[s].mrr += (r.Amount||0);
+    });
+
+    const section = document.createElement('div');
+    section.className = 'product-section';
+    section.innerHTML = `
+      <div class="product-header">
+        <h2><span class="dot" style="background:${color}"></span>${pt}</h2>
+        <div class="totals">
+          <span>Pipeline: <strong>${fmt(mrr)}</strong></span>
+          <span>Weighted: <strong>${fmt(weighted)}</strong></span>
+          <span>${recs.length} opps</span>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Account</th>
+            <th>Opportunity</th>
+            <th>Owner</th>
+            <th>Stage</th>
+            <th class="right">MRR</th>
+            <th class="right">Close Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${recs.map(r => {
+            const stage = r.StageName || '—';
+            const cls = STAGE_CLASSES[stage] || 'other';
+            return `<tr>
+              <td>${r.Account?.Name || '—'}</td>
+              <td>${r.Name || '—'}</td>
+              <td>${r.Owner?.Name || '—'}</td>
+              <td><span class="stage-badge stage-${cls}">${stage}</span></td>
+              <td class="right">${r.Amount ? '$' + r.Amount.toLocaleString() : '—'}</td>
+              <td class="right">${r.CloseDate || '—'}</td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    `;
+    sectionsEl.appendChild(section);
+  });
+}
+
+function getMonday(d) {
+  const dt = new Date(d);
+  const day = dt.getDay();
+  const diff = dt.getDate() - day + (day === 0 ? -6 : 1);
+  return new Date(dt.setDate(diff));
+}
+
+// Try loading data from forecast-data.json (same directory)
+fetch('forecast-data.json')
+  .then(r => r.ok ? r.json() : null)
+  .then(data => render(data))
+  .catch(() => render(FORECAST_DATA));
+</script>
+</body>
+</html>
