@@ -6,796 +6,562 @@
 <title>Rev.io PSA — Competitor Battle Cards</title>
 <style>
   :root {
-    --navy: #0a0a0a;
-    --navy-light: #141414;
-    --green: #4CC94C;
-    --green-dim: #3a9e3a;
-    --white: #ffffff;
-    --gray: #8a9bb5;
-    --red: #e74c3c;
-    --yellow: #f1c40f;
-    --blue: #3498db;
-    --purple: #9b59b6;
-    --orange: #e67e22;
-    --card-bg: #111111;
-    --border: #1e1e1e;
-    --grid-color: rgba(76, 201, 76, 0.06);
+    --green: #00ff88;
+    --cyan: #00e5ff;
+    --bg: #020408;
+    --surface: #060d14;
+    --border: #0a2a1a;
+    --border2: #0d1f2d;
+    --text: #c8f0dc;
+    --muted: #2a5a3a;
+    --red: #ff4444;
+    --yellow: #ffd700;
+    --purple: #bf5af2;
+    --orange: #ff6b35;
   }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    background: var(--navy);
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI',system-ui,monospace; background:var(--bg); color:var(--text); }
+
+  body::before {
+    content:'';
+    position:fixed; top:0; left:0; right:0; bottom:0;
     background-image:
-      linear-gradient(var(--grid-color) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+      linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
     background-size: 40px 40px;
-    color: var(--white);
-    font-family: 'Segoe UI', Calibri, Arial, sans-serif;
-    min-height: 100vh;
-    padding: 0;
+    pointer-events:none; z-index:0;
   }
 
-  /* Header — matches forecast */
-  .header {
-    background: linear-gradient(135deg, #0a0a0a 0%, #111111 100%);
-    border-bottom: 3px solid var(--green);
-    padding: 24px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 0 30px rgba(76, 201, 76, 0.1);
-  }
-  .header h1 {
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-  }
-  .header h1 span { color: var(--green); text-shadow: 0 0 20px rgba(76, 201, 76, 0.4); }
-  .header .meta {
-    text-align: right;
-    color: var(--gray);
-    font-size: 14px;
-  }
-  .header .meta .date { font-size: 16px; color: var(--white); font-weight: 600; }
+  .scanline { position:fixed; top:0; left:0; right:0; bottom:0; background:repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px); pointer-events:none; z-index:0; }
 
-  .container { max-width: 1400px; margin: 0 auto; padding: 30px 40px; }
+  .container { max-width:1100px; margin:0 auto; padding:24px 32px; position:relative; z-index:1; }
 
-  /* Tab bar */
-  .tab-bar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 24px;
-  }
+  /* HEADER */
+  .header { border-bottom:1px solid var(--border); padding-bottom:16px; margin-bottom:20px; }
+  .header-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+  .logo { display:flex; align-items:center; gap:10px; }
+  .logo-dot { width:10px; height:10px; background:var(--green); border-radius:50%; box-shadow:0 0 12px var(--green); animation:pulse 2s infinite; }
+  .logo-text { font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--green); }
+  .header-date { font-size:11px; color:var(--muted); letter-spacing:1px; }
+  h1 { font-size:36px; font-weight:900; color:#fff; letter-spacing:-1px; margin-bottom:4px; }
+  h1 span { color:var(--green); text-shadow:0 0 30px var(--green); }
+  .header-sub { font-size:13px; color:var(--muted); }
+
+  @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
+
+  /* TAB BAR */
+  .tab-bar { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:20px; }
   .tab-btn {
-    font-family: 'Segoe UI', Calibri, Arial, sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    padding: 10px 24px;
-    background: var(--card-bg);
-    color: var(--gray);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-family:'Segoe UI',system-ui,monospace;
+    font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+    padding:8px 18px;
+    background:var(--surface); border:1px solid var(--border); border-radius:8px;
+    color:var(--muted); cursor:pointer; transition:all 0.2s;
+    display:flex; align-items:center; gap:8px;
   }
-  .tab-btn:hover {
-    background: var(--navy-light);
-    color: var(--white);
-  }
-  .tab-btn.active {
-    background: var(--navy-light);
-    color: var(--green);
-    border-color: var(--green);
-    box-shadow: 0 0 12px rgba(76, 201, 76, 0.2), inset 0 0 12px rgba(76, 201, 76, 0.05);
-  }
-  .tab-btn .dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
-  }
+  .tab-btn:hover { background:rgba(0,255,136,0.03); color:var(--text); }
+  .tab-btn.active { border-color:var(--green); color:var(--green); background:rgba(0,255,136,0.04); box-shadow:0 0 12px rgba(0,255,136,0.15); }
+  .tab-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
 
-  /* Tab panels */
-  .tab-panel { display: none; }
-  .tab-panel.active { display: block; animation: fadeIn 0.25s; }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(4px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  /* TAB PANELS */
+  .tab-panel { display:none; }
+  .tab-panel.active { display:block; animation:fadeIn 0.25s; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
 
-  /* Summary cards row — matches forecast */
-  .summary-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-  .summary-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  }
-  .summary-card .label {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--gray);
-    margin-bottom: 8px;
-  }
-  .summary-card .value {
-    font-size: 28px;
-    font-weight: 700;
-  }
-  .summary-card .sub {
-    font-size: 13px;
-    color: var(--gray);
-    margin-top: 4px;
-  }
+  /* SUMMARY BAR */
+  .summary-bar { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px; margin-bottom:20px; }
+  .sum-item { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:12px; text-align:center; }
+  .sum-item.highlight { border-color:var(--green); background:rgba(0,255,136,0.04); }
+  .sum-label { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); margin-bottom:4px; }
+  .sum-val { font-size:18px; font-weight:900; color:#fff; }
+  .sum-val.green { color:var(--green); text-shadow:0 0 15px rgba(0,255,136,0.4); }
+  .sum-sub { font-size:10px; color:var(--muted); margin-top:2px; }
 
-  /* Product-section style blocks — matches forecast */
-  .section-block {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    margin-bottom: 20px;
-    overflow: hidden;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  }
+  /* SECTION CARDS */
+  .section-card { background:var(--surface); border:1px solid var(--border); border-radius:10px; margin-bottom:10px; overflow:hidden; }
   .section-header {
-    padding: 14px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--border);
-    cursor: pointer;
-    user-select: none;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 18px; border-bottom:1px solid var(--border);
+    cursor:pointer; user-select:none; transition:background 0.15s;
   }
-  .section-header:hover { background: rgba(255,255,255,0.02); }
-  .section-header h3 {
-    font-size: 16px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  .section-header .chevron {
-    color: var(--gray);
-    transition: transform 0.2s;
-    font-size: 14px;
-  }
-  .section-header.collapsed .chevron { transform: rotate(-90deg); }
-  .section-body { padding: 0; }
-  .section-body.collapsed { display: none; }
+  .section-header:hover { background:rgba(0,255,136,0.03); }
+  .section-title-row { display:flex; align-items:center; gap:10px; }
+  .section-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+  .section-label { font-size:14px; font-weight:800; letter-spacing:-0.3px; }
+  .section-chevron { font-size:11px; color:var(--muted); transition:transform 0.2s; }
+  .section-header.collapsed .section-chevron { transform:rotate(-90deg); }
+  .section-body { }
+  .section-body.collapsed { display:none; }
 
-  /* Tables — matches forecast */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  th {
-    background: rgba(76, 201, 76, 0.05);
-    padding: 10px 16px;
-    text-align: left;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--gray);
-    font-weight: 600;
-  }
-  td {
-    padding: 10px 16px;
-    font-size: 14px;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    vertical-align: top;
-    line-height: 1.5;
-  }
-  tr:hover td { background: rgba(255,255,255,0.03); }
+  /* TABLES */
+  table { width:100%; border-collapse:collapse; }
+  thead { background:#030a06; }
+  th { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); padding:7px 14px; text-align:left; }
+  td { font-size:12px; padding:6px 14px; border-bottom:1px solid rgba(0,255,136,0.04); color:#8ab89a; vertical-align:top; line-height:1.6; }
+  td:first-child { color:#c8f0dc; font-weight:600; }
+  tr:last-child td { border-bottom:none; }
+  tr:hover td { background:rgba(0,255,136,0.02); }
 
-  /* Badges — matches forecast stage badges */
-  .badge {
-    display: inline-block;
-    padding: 2px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-  }
-  .badge-green { background: rgba(76,201,76,0.2); color: var(--green); }
-  .badge-red { background: rgba(231,76,60,0.2); color: var(--red); }
-  .badge-yellow { background: rgba(241,196,15,0.2); color: var(--yellow); }
-  .badge-blue { background: rgba(52,152,219,0.2); color: var(--blue); }
-  .badge-purple { background: rgba(155,89,182,0.2); color: var(--purple); }
-  .badge-orange { background: rgba(230,126,34,0.2); color: var(--orange); }
-  .badge-gray { background: rgba(255,255,255,0.1); color: var(--gray); }
+  /* STAGE PILLS */
+  .pill { font-size:9px; font-weight:700; padding:2px 7px; border-radius:8px; text-transform:uppercase; letter-spacing:0.5px; display:inline-block; }
+  .pill-green { background:rgba(0,255,136,0.1); color:var(--green); border:1px solid rgba(0,255,136,0.25); }
+  .pill-red { background:rgba(255,68,68,0.1); color:var(--red); border:1px solid rgba(255,68,68,0.2); }
+  .pill-yellow { background:rgba(255,215,0,0.08); color:var(--yellow); border:1px solid rgba(255,215,0,0.2); }
+  .pill-cyan { background:rgba(0,229,255,0.08); color:var(--cyan); border:1px solid rgba(0,229,255,0.15); }
+  .pill-purple { background:rgba(191,90,242,0.1); color:var(--purple); border:1px solid rgba(191,90,242,0.2); }
+  .pill-orange { background:rgba(255,107,53,0.1); color:var(--orange); border:1px solid rgba(255,107,53,0.2); }
+  .pill-gray { background:rgba(100,116,139,0.15); color:#64748b; border:1px solid rgba(100,116,139,0.2); }
 
-  /* Win/Lose columns */
-  .split-table td:first-child { border-right: 1px solid rgba(255,255,255,0.05); }
+  /* DISCOVERY QUESTIONS */
+  .q-row td { padding-left:20px; }
+  .q-row td::before { content:'💣'; margin-right:8px; }
 
-  /* Discovery questions */
-  .question-row td { padding-left: 20px; }
-  .question-row td::before {
-    content: '💣';
-    margin-right: 8px;
-  }
+  /* OBJECTION COL */
+  .obj-col { width:35%; color:#5a8a6a; font-style:italic; }
 
-  /* Objection table */
-  .objection-col { width: 35%; color: var(--gray); font-style: italic; }
+  /* INTERNAL NOTE */
+  .internal-note { font-size:11px; color:#1a3a2a; padding:12px 18px; border-top:1px solid rgba(0,255,136,0.04); letter-spacing:0.5px; }
 
-  /* Internal notes */
-  .internal-note {
-    color: var(--gray);
-    font-style: italic;
-    font-size: 13px;
-    padding: 16px 24px;
-    border-top: 1px solid rgba(255,255,255,0.05);
+  /* NARRATIVE CARDS */
+  .narrative-card {
+    background:var(--surface); border:1px solid var(--border); border-radius:10px;
+    padding:20px; margin-bottom:12px;
   }
+  .narrative-card h4 { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:var(--green); margin-bottom:8px; }
+  .narrative-card p { font-size:13px; color:#8ab89a; line-height:1.7; }
 
-  /* Footer — matches forecast */
-  .footer {
-    text-align: center;
-    padding: 30px;
-    color: var(--gray);
-    font-size: 13px;
-  }
-  .footer a { color: var(--green); text-decoration: none; }
+  /* META CHIPS */
+  .meta-chip { background:rgba(0,255,136,0.06); border:1px solid var(--border); color:#5a8a6a; font-size:11px; padding:3px 10px; border-radius:20px; display:inline-block; }
+  .meta-chip strong { color:#aad4bb; }
 
-  /* Quick ref cards */
-  .qr-card {
-    background: var(--card-bg);
-    border: 1px solid #1a3a1a;
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 16px;
-    box-shadow: 0 0 20px rgba(76, 201, 76, 0.05);
-  }
-  .qr-card h4 {
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--green);
-    margin-bottom: 10px;
-  }
-  .qr-card p {
-    color: #c0cee0;
-    font-size: 14px;
-    line-height: 1.6;
-  }
+  /* FOOTER */
+  .footer { text-align:center; padding:20px; font-size:10px; color:#1a3a2a; letter-spacing:1px; border-top:1px solid var(--border); margin-top:8px; }
 
-  @media (max-width: 768px) {
-    .header { padding: 16px 20px; flex-direction: column; gap: 8px; }
-    .container { padding: 16px 20px; }
-    .summary-row { grid-template-columns: repeat(2, 1fr); }
-    th, td { padding: 8px 10px; font-size: 12px; }
-    .tab-btn { padding: 8px 14px; font-size: 12px; }
+  @media (max-width:768px) {
+    .container { padding:16px 16px; }
+    .summary-bar { grid-template-columns:repeat(2,1fr); }
+    .tab-btn { font-size:9px; padding:6px 12px; }
+    h1 { font-size:24px; }
   }
 </style>
 </head>
 <body>
-
-<div class="header">
-  <h1>Rev.io <span>Battle Cards</span></h1>
-  <div class="meta">
-    <div class="date">PSA Competitor Intelligence</div>
-    <div>Internal Use Only — Sales Enablement</div>
-  </div>
-</div>
-
+<div class="scanline"></div>
 <div class="container">
 
-  <!-- Tab bar -->
-  <div class="tab-bar">
-    <button class="tab-btn active" onclick="showTab('connectwise',this)"><span class="dot" style="background:var(--blue)"></span>ConnectWise</button>
-    <button class="tab-btn" onclick="showTab('autotask',this)"><span class="dot" style="background:var(--red)"></span>Autotask</button>
-    <button class="tab-btn" onclick="showTab('halopsa',this)"><span class="dot" style="background:var(--purple)"></span>HaloPSA</button>
-    <button class="tab-btn" onclick="showTab('syncro',this)"><span class="dot" style="background:var(--orange)"></span>Syncro</button>
-    <button class="tab-btn" onclick="showTab('superops',this)"><span class="dot" style="background:var(--yellow)"></span>SuperOps</button>
-    <button class="tab-btn" onclick="showTab('quickref',this)"><span class="dot" style="background:var(--green)"></span>Quick Ref</button>
+  <div class="header">
+    <div class="header-top">
+      <div class="logo">
+        <div class="logo-dot"></div>
+        <div class="logo-text">Rev.io · Sales Enablement</div>
+      </div>
+      <div class="header-date">INTERNAL USE ONLY · FEBRUARY 2026</div>
+    </div>
+    <h1>Competitor <span>Battle Cards</span></h1>
+    <div class="header-sub">5 PSA competitors · Discovery questions · Objection handling · Win/loss patterns</div>
   </div>
 
-  <!-- ═══════════ CONNECTWISE ═══════════ -->
-  <div id="connectwise" class="tab-panel active">
-    <div class="summary-row">
-      <div class="summary-card"><div class="label">Founded</div><div class="value" style="color:var(--blue)">1982</div><div class="sub">Tampa, FL</div></div>
-      <div class="summary-card"><div class="label">Customers</div><div class="value" style="color:var(--blue)">40K+</div><div class="sub">MSP partners globally</div></div>
-      <div class="summary-card"><div class="label">Target</div><div class="value" style="font-size:18px;color:var(--white)">15–100+</div><div class="sub">technicians (managed IT)</div></div>
-      <div class="summary-card"><div class="label">Pricing</div><div class="value" style="font-size:18px;color:var(--white)">$89–125</div><div class="sub">/user/month · multi-year lock-in</div></div>
-      <div class="summary-card"><div class="label">Owner</div><div class="value" style="font-size:16px;color:var(--gray)">Thoma Bravo</div><div class="sub">PE acquired 2019</div></div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('cw',this)"><span class="tab-dot" style="background:var(--cyan);box-shadow:0 0 6px var(--cyan)"></span>ConnectWise</button>
+    <button class="tab-btn" onclick="showTab('at',this)"><span class="tab-dot" style="background:var(--red);box-shadow:0 0 6px var(--red)"></span>Autotask</button>
+    <button class="tab-btn" onclick="showTab('hp',this)"><span class="tab-dot" style="background:var(--purple);box-shadow:0 0 6px var(--purple)"></span>HaloPSA</button>
+    <button class="tab-btn" onclick="showTab('sy',this)"><span class="tab-dot" style="background:var(--orange);box-shadow:0 0 6px var(--orange)"></span>Syncro</button>
+    <button class="tab-btn" onclick="showTab('so',this)"><span class="tab-dot" style="background:var(--yellow);box-shadow:0 0 6px var(--yellow)"></span>SuperOps</button>
+    <button class="tab-btn" onclick="showTab('qr',this)"><span class="tab-dot" style="background:var(--green);box-shadow:0 0 6px var(--green)"></span>Quick Ref</button>
+  </div>
+
+  <!-- ═══════ CONNECTWISE ═══════ -->
+  <div id="cw" class="tab-panel active">
+    <div class="summary-bar">
+      <div class="sum-item"><div class="sum-label">Founded</div><div class="sum-val" style="color:var(--cyan);text-shadow:0 0 15px rgba(0,229,255,0.4)">1982</div><div class="sum-sub">Tampa, FL</div></div>
+      <div class="sum-item"><div class="sum-label">Customers</div><div class="sum-val" style="color:var(--cyan)">40K+</div><div class="sum-sub">MSP partners globally</div></div>
+      <div class="sum-item"><div class="sum-label">Sweet Spot</div><div class="sum-val">15–100+</div><div class="sum-sub">technicians</div></div>
+      <div class="sum-item"><div class="sum-label">Pricing</div><div class="sum-val">$89–125</div><div class="sum-sub">/user/mo · multi-year lock-in</div></div>
+      <div class="sum-item"><div class="sum-label">Owner</div><div class="sum-val" style="font-size:14px;color:#5a8a6a">Thoma Bravo</div><div class="sum-sub">PE acquired 2019</div></div>
     </div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--blue)"></span>Strengths vs. Weaknesses</h3><span class="chevron">▼</span></div>
+    <div class="section-card">
+      <div class="section-header" onclick="toggle(this)">
+        <div class="section-title-row"><div class="section-dot" style="background:var(--cyan);box-shadow:0 0 6px var(--cyan)"></div><span class="section-label" style="color:var(--cyan)">Strengths vs. Weaknesses</span></div>
+        <span class="section-chevron">▼</span>
+      </div>
       <div class="section-body">
-        <table class="split-table">
-          <tr><th style="color:var(--green)">✅ Strengths</th><th style="color:var(--red)">❌ Weaknesses</th></tr>
+        <table>
+          <tr><th style="color:var(--green)">✅ STRENGTHS</th><th style="color:var(--red)">❌ WEAKNESSES</th></tr>
           <tr><td>Largest MSP ecosystem — most integrations</td><td>Aggressive lock-in contracts (multi-year, auto-renew)</td></tr>
-          <tr><td>Deep functionality — covers every MSP workflow</td><td>Bloated, complex UI — steep learning curve</td></tr>
+          <tr><td>Deep functionality — every MSP workflow</td><td>Bloated, complex UI — steep learning curve</td></tr>
           <tr><td>Strong community (IT Nation, peer groups)</td><td>Billing is basic — no usage-based or complex recurring</td></tr>
-          <tr><td>Mature product, long track record</td><td>Over-promises on new features (Asio/Sidekick still preview)</td></tr>
+          <tr><td>Mature product, long track record</td><td>Over-promises on features (Asio/Sidekick still preview)</td></tr>
           <tr><td>ConnectWise Sell for quoting/CPQ</td><td>No integrated payment processing</td></tr>
-          <tr><td>Large partner network & training</td><td>ScreenConnect vulnerability (2024) — security concern</td></tr>
-          <tr><td></td><td>Pricing increased significantly; nickel-and-dime add-ons</td></tr>
+          <tr><td>Large partner network & training</td><td>ScreenConnect vulnerability (2024)</td></tr>
+          <tr><td></td><td>Nickel-and-dime add-on pricing model</td></tr>
         </table>
       </div>
     </div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--blue)"></span>Feature Comparison</h3><span class="chevron">▼</span></div>
+    <div class="section-card">
+      <div class="section-header" onclick="toggle(this)">
+        <div class="section-title-row"><div class="section-dot" style="background:var(--cyan);box-shadow:0 0 6px var(--cyan)"></div><span class="section-label" style="color:var(--cyan)">Feature Comparison</span></div>
+        <span class="section-chevron">▼</span>
+      </div>
       <div class="section-body">
         <table>
           <tr><th>Capability</th><th>Rev.io</th><th>ConnectWise</th></tr>
-          <tr><td>Complex billing (recurring + usage + one-time)</td><td><span class="badge badge-green">✅ Native</span> Purpose-built for telecom/multi-service</td><td><span class="badge badge-red">❌</span> Basic time & materials only</td></tr>
-          <tr><td>Integrated payments</td><td><span class="badge badge-green">✅ TRX Services</span></td><td><span class="badge badge-red">❌</span> Requires ConnectBooster etc.</td></tr>
-          <tr><td>Quote-to-cash automation</td><td><span class="badge badge-green">✅ End-to-end</span></td><td><span class="badge badge-yellow">⚠️</span> Sell is separate product/cost</td></tr>
-          <tr><td>Multi-service (IT + VoIP + internet)</td><td><span class="badge badge-green">✅ Built for bundles</span></td><td><span class="badge badge-red">❌</span> IT-only; no telecom</td></tr>
-          <tr><td>Ticketing & service desk</td><td><span class="badge badge-green">✅ Full</span></td><td><span class="badge badge-green">✅ Mature</span></td></tr>
-          <tr><td>Project management</td><td><span class="badge badge-green">✅</span></td><td><span class="badge badge-green">✅</span></td></tr>
-          <tr><td>CRM / sales pipeline</td><td><span class="badge badge-green">✅</span></td><td><span class="badge badge-yellow">⚠️</span> Sell is separate</td></tr>
-          <tr><td>RMM integration</td><td><span class="badge badge-yellow">⚠️</span> Third-party</td><td><span class="badge badge-green">✅ Automate</span></td></tr>
-          <tr><td>Inventory & assets</td><td><span class="badge badge-green">✅ Supply chain</span></td><td><span class="badge badge-green">✅ Procurement</span></td></tr>
-          <tr><td>Ease of implementation</td><td><span class="badge badge-green">✅ Modern, fast</span></td><td><span class="badge badge-red">❌</span> Notoriously complex</td></tr>
+          <tr><td>Complex billing (recurring + usage + one-time)</td><td><span class="pill pill-green">✅ NATIVE</span> Purpose-built telecom/multi-service</td><td><span class="pill pill-red">❌</span> Basic time & materials only</td></tr>
+          <tr><td>Integrated payments</td><td><span class="pill pill-green">✅ TRX SERVICES</span></td><td><span class="pill pill-red">❌</span> Requires ConnectBooster etc.</td></tr>
+          <tr><td>Quote-to-cash automation</td><td><span class="pill pill-green">✅ END-TO-END</span></td><td><span class="pill pill-yellow">⚠️ PARTIAL</span> Sell is separate product</td></tr>
+          <tr><td>Multi-service (IT + VoIP + internet)</td><td><span class="pill pill-green">✅ BUILT FOR BUNDLES</span></td><td><span class="pill pill-red">❌</span> IT-only; no telecom</td></tr>
+          <tr><td>Ticketing & service desk</td><td><span class="pill pill-green">✅ FULL</span></td><td><span class="pill pill-green">✅ MATURE</span></td></tr>
+          <tr><td>Project management</td><td><span class="pill pill-green">✅</span></td><td><span class="pill pill-green">✅</span></td></tr>
+          <tr><td>CRM / sales pipeline</td><td><span class="pill pill-green">✅</span></td><td><span class="pill pill-yellow">⚠️</span> Sell is separate</td></tr>
+          <tr><td>RMM integration</td><td><span class="pill pill-yellow">⚠️</span> Third-party</td><td><span class="pill pill-green">✅ AUTOMATE</span></td></tr>
+          <tr><td>Inventory & assets</td><td><span class="pill pill-green">✅ SUPPLY CHAIN</span></td><td><span class="pill pill-green">✅ PROCUREMENT</span></td></tr>
+          <tr><td>Ease of implementation</td><td><span class="pill pill-green">✅ MODERN, FAST</span></td><td><span class="pill pill-red">❌</span> Notoriously complex</td></tr>
         </table>
       </div>
     </div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--blue)"></span>Discovery Questions (Landmines)</h3><span class="chevron">▼</span></div>
+    <div class="section-card">
+      <div class="section-header" onclick="toggle(this)">
+        <div class="section-title-row"><div class="section-dot" style="background:var(--cyan);box-shadow:0 0 6px var(--cyan)"></div><span class="section-label" style="color:var(--cyan)">Discovery Questions (Landmines)</span></div>
+        <span class="section-chevron">▼</span>
+      </div>
       <div class="section-body">
         <table>
-          <tr class="question-row"><td>"How are you billing for non-managed-IT services like VoIP, internet, or cloud? In your PSA or separate?"</td></tr>
-          <tr class="question-row"><td>"What does your payment collection process look like? How many days from invoice to cash?"</td></tr>
-          <tr class="question-row"><td>"How much are you spending on CW add-ons (Sell, ConnectBooster, etc.) on top of your PSA license?"</td></tr>
-          <tr class="question-row"><td>"If you wanted to add a new recurring service with usage-based billing, how would you handle that?"</td></tr>
-          <tr class="question-row"><td>"How confident are you that you could exit your ConnectWise contract if you found something better?"</td></tr>
-          <tr class="question-row"><td>"How many hours/month does your team spend on billing reconciliation across multiple systems?"</td></tr>
+          <tr class="q-row"><td>"How are you billing for non-managed-IT services like VoIP, internet, or cloud? In your PSA or separate?"</td></tr>
+          <tr class="q-row"><td>"What does your payment collection process look like? How many days from invoice to cash?"</td></tr>
+          <tr class="q-row"><td>"How much are you spending on CW add-ons (Sell, ConnectBooster, etc.) on top of your PSA license?"</td></tr>
+          <tr class="q-row"><td>"If you wanted to add a new recurring service with usage-based billing, how would you handle that?"</td></tr>
+          <tr class="q-row"><td>"How confident are you that you could exit your ConnectWise contract if you found something better?"</td></tr>
+          <tr class="q-row"><td>"How many hours/month does your team spend on billing reconciliation across systems?"</td></tr>
         </table>
       </div>
     </div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--blue)"></span>Why We Win / Why We Lose</h3><span class="chevron">▼</span></div>
+    <div class="section-card">
+      <div class="section-header" onclick="toggle(this)">
+        <div class="section-title-row"><div class="section-dot" style="background:var(--cyan);box-shadow:0 0 6px var(--cyan)"></div><span class="section-label" style="color:var(--cyan)">Why We Win / Why We Lose</span></div>
+        <span class="section-chevron">▼</span>
+      </div>
       <div class="section-body">
-        <table class="split-table">
-          <tr><th style="color:var(--green)">🏆 Why We Win</th><th style="color:var(--red)">⚠️ Why We Lose</th></tr>
+        <table>
+          <tr><th style="color:var(--green)">🏆 WHY WE WIN</th><th style="color:var(--red)">⚠️ WHY WE LOSE</th></tr>
           <tr><td>MSPs adding telecom/VoIP need billing CW can't do</td><td>Deeply embedded CW ecosystem — switching cost enormous</td></tr>
           <tr><td>Integrated payments eliminate ConnectBooster cost</td><td>CW's massive integration marketplace</td></tr>
-          <tr><td>Single platform quote-to-cash vs. fragmented suite</td><td>"Nobody gets fired for buying ConnectWise" mentality</td></tr>
+          <tr><td>Single platform quote-to-cash vs. fragmented suite</td><td>"Nobody gets fired for buying ConnectWise"</td></tr>
           <tr><td>Faster implementation, modern UX</td><td>Large MSPs (100+ techs) want CW's PM depth</td></tr>
           <tr><td>No predatory contract terms</td><td>IT Nation community = social lock-in</td></tr>
         </table>
       </div>
     </div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--blue)"></span>Objection Handling</h3><span class="chevron">▼</span></div>
+    <div class="section-card">
+      <div class="section-header" onclick="toggle(this)">
+        <div class="section-title-row"><div class="section-dot" style="background:var(--cyan);box-shadow:0 0 6px var(--cyan)"></div><span class="section-label" style="color:var(--cyan)">Objection Handling</span></div>
+        <span class="section-chevron">▼</span>
+      </div>
       <div class="section-body">
         <table>
           <tr><th>Objection</th><th>Response</th></tr>
-          <tr><td class="objection-col">"ConnectWise has the most integrations"</td><td>"How many do you actually use? Rev.io gives you billing, payments, and quoting natively — that's 2-3 fewer integrations to manage and pay for."</td></tr>
-          <tr><td class="objection-col">"We've been on ConnectWise for years"</td><td>"That's exactly why they can charge what they charge. How much on add-ons, and what's the cost of NOT billing for new services? We offer guided migration and parallel transition."</td></tr>
-          <tr><td class="objection-col">"ConnectWise is the industry standard"</td><td>"Standard for pure-play managed IT. But you're not just doing managed IT anymore. VoIP, internet, cloud — you need a platform built for that complexity."</td></tr>
+          <tr><td class="obj-col">"ConnectWise has the most integrations"</td><td>"How many do you actually use? Rev.io gives you billing, payments, and quoting natively — 2-3 fewer integrations to manage and pay for."</td></tr>
+          <tr><td class="obj-col">"We've been on ConnectWise for years"</td><td>"That's exactly why they can charge what they charge. How much on add-ons, and what's the cost of NOT billing for new services? We offer guided migration."</td></tr>
+          <tr><td class="obj-col">"ConnectWise is the industry standard"</td><td>"Standard for pure-play managed IT. But you're adding VoIP, internet, cloud — you need a platform built for that complexity."</td></tr>
         </table>
       </div>
     </div>
-
-    <div class="internal-note">📋 Win stories: Document CW→Rev.io migrations. Focus on Fuse.Cloud as multi-service MSP example. Reduced billing complexity, faster payment collection, new service lines.</div>
+    <div class="internal-note">📋 Document CW→Rev.io migration wins. Reference Fuse.Cloud. Focus on billing complexity, faster payments, new service lines.</div>
   </div>
 
-  <!-- ═══════════ AUTOTASK ═══════════ -->
-  <div id="autotask" class="tab-panel">
-    <div class="summary-row">
-      <div class="summary-card"><div class="label">Founded</div><div class="value" style="color:var(--red)">2001</div><div class="sub">Kaseya HQ: Miami, FL</div></div>
-      <div class="summary-card"><div class="label">Customers</div><div class="value" style="color:var(--red)">10K+</div><div class="sub">MSP partners</div></div>
-      <div class="summary-card"><div class="label">Target</div><div class="value" style="font-size:18px;color:var(--white)">10–75</div><div class="sub">technicians (pure managed IT)</div></div>
-      <div class="summary-card"><div class="label">Pricing</div><div class="value" style="font-size:18px;color:var(--white)">$65–125</div><div class="sub">/user/month · multi-year pushed</div></div>
-      <div class="summary-card"><div class="label">Owner</div><div class="value" style="font-size:16px;color:var(--gray)">Kaseya</div><div class="sub">Acquired 2022 for $6.2B</div></div>
+  <!-- ═══════ AUTOTASK ═══════ -->
+  <div id="at" class="tab-panel">
+    <div class="summary-bar">
+      <div class="sum-item"><div class="sum-label">Founded</div><div class="sum-val" style="color:var(--red);text-shadow:0 0 15px rgba(255,68,68,0.4)">2001</div><div class="sum-sub">Kaseya HQ: Miami, FL</div></div>
+      <div class="sum-item"><div class="sum-label">Customers</div><div class="sum-val" style="color:var(--red)">10K+</div><div class="sum-sub">MSP partners</div></div>
+      <div class="sum-item"><div class="sum-label">Sweet Spot</div><div class="sum-val">10–75</div><div class="sum-sub">technicians</div></div>
+      <div class="sum-item"><div class="sum-label">Pricing</div><div class="sum-val">$65–125</div><div class="sum-sub">/user/mo · multi-year pushed</div></div>
+      <div class="sum-item"><div class="sum-label">Owner</div><div class="sum-val" style="font-size:14px;color:#5a8a6a">Kaseya</div><div class="sum-sub">Acquired 2022 · $6.2B</div></div>
     </div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--red)"></span>Strengths vs. Weaknesses</h3><span class="chevron">▼</span></div>
-      <div class="section-body">
-        <table class="split-table">
-          <tr><th style="color:var(--green)">✅ Strengths</th><th style="color:var(--red)">❌ Weaknesses</th></tr>
-          <tr><td>Cloud-native — reliable, no on-prem</td><td>Post-Kaseya: support quality declined</td></tr>
-          <tr><td>Tight integration with Datto RMM + IT Glue</td><td>UI feels dated and slow</td></tr>
-          <tr><td>Solid ticketing and workflow automation</td><td>Basic billing — no usage-based or telecom</td></tr>
-          <tr><td>Good reporting and dashboards</td><td>Aggressive contract/renewal practices</td></tr>
-          <tr><td>Kaseya 365 bundle can be cost-effective</td><td>Limited flexibility for non-IT services</td></tr>
-          <tr><td></td><td>Innovation slowed under Kaseya</td></tr>
-        </table>
-      </div>
-    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--red);box-shadow:0 0 6px var(--red)"></div><span class="section-label" style="color:var(--red)">Strengths vs. Weaknesses</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th style="color:var(--green)">✅ STRENGTHS</th><th style="color:var(--red)">❌ WEAKNESSES</th></tr>
+      <tr><td>Cloud-native — reliable, no on-prem</td><td>Post-Kaseya: support quality declined</td></tr>
+      <tr><td>Tight Datto RMM + IT Glue integration</td><td>UI feels dated and slow</td></tr>
+      <tr><td>Solid ticketing and workflow automation</td><td>Basic billing — no usage-based or telecom</td></tr>
+      <tr><td>Good reporting and dashboards</td><td>Aggressive contract/renewal practices</td></tr>
+      <tr><td>Kaseya 365 bundle can be cost-effective</td><td>Limited flexibility for non-IT services</td></tr>
+      <tr><td></td><td>Innovation slowed under Kaseya</td></tr>
+    </table></div></div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--red)"></span>Feature Comparison</h3><span class="chevron">▼</span></div>
-      <div class="section-body">
-        <table>
-          <tr><th>Capability</th><th>Rev.io</th><th>Autotask</th></tr>
-          <tr><td>Complex billing</td><td><span class="badge badge-green">✅ Native</span> Telecom-grade</td><td><span class="badge badge-red">❌</span> Basic; no usage-based</td></tr>
-          <tr><td>Integrated payments</td><td><span class="badge badge-green">✅ TRX Services</span></td><td><span class="badge badge-red">❌</span> Third-party required</td></tr>
-          <tr><td>Quote-to-cash</td><td><span class="badge badge-green">✅ Full lifecycle</span></td><td><span class="badge badge-yellow">⚠️</span> Limited; no payment integration</td></tr>
-          <tr><td>Multi-service support</td><td><span class="badge badge-green">✅ IT + VoIP + internet</span></td><td><span class="badge badge-red">❌</span> IT-only workflows</td></tr>
-          <tr><td>Ticketing</td><td><span class="badge badge-green">✅ Full</span></td><td><span class="badge badge-green">✅ Mature</span></td></tr>
-          <tr><td>RMM</td><td><span class="badge badge-yellow">⚠️</span> Third-party</td><td><span class="badge badge-green">✅ Datto RMM</span></td></tr>
-          <tr><td>IT documentation</td><td><span class="badge badge-yellow">⚠️</span> Third-party</td><td><span class="badge badge-green">✅ IT Glue</span></td></tr>
-          <tr><td>Contract management</td><td><span class="badge badge-green">✅ Complex multi-billing</span></td><td><span class="badge badge-yellow">⚠️</span> Standard only</td></tr>
-        </table>
-      </div>
-    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--red);box-shadow:0 0 6px var(--red)"></div><span class="section-label" style="color:var(--red)">Feature Comparison</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Capability</th><th>Rev.io</th><th>Autotask</th></tr>
+      <tr><td>Complex billing</td><td><span class="pill pill-green">✅ NATIVE</span> Telecom-grade</td><td><span class="pill pill-red">❌</span> Basic; no usage-based</td></tr>
+      <tr><td>Integrated payments</td><td><span class="pill pill-green">✅ TRX</span></td><td><span class="pill pill-red">❌</span> Third-party required</td></tr>
+      <tr><td>Quote-to-cash</td><td><span class="pill pill-green">✅ FULL</span></td><td><span class="pill pill-yellow">⚠️</span> Limited; no payment integration</td></tr>
+      <tr><td>Multi-service</td><td><span class="pill pill-green">✅ IT+VOIP+CLOUD</span></td><td><span class="pill pill-red">❌</span> IT-only</td></tr>
+      <tr><td>Ticketing</td><td><span class="pill pill-green">✅</span></td><td><span class="pill pill-green">✅ MATURE</span></td></tr>
+      <tr><td>RMM</td><td><span class="pill pill-yellow">⚠️</span> Third-party</td><td><span class="pill pill-green">✅ DATTO RMM</span></td></tr>
+      <tr><td>IT documentation</td><td><span class="pill pill-yellow">⚠️</span> Third-party</td><td><span class="pill pill-green">✅ IT GLUE</span></td></tr>
+      <tr><td>Contract management</td><td><span class="pill pill-green">✅ COMPLEX</span></td><td><span class="pill pill-yellow">⚠️</span> Standard only</td></tr>
+    </table></div></div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--red)"></span>Discovery Questions (Landmines)</h3><span class="chevron">▼</span></div>
-      <div class="section-body">
-        <table>
-          <tr class="question-row"><td>"Since the Kaseya acquisition, have you noticed changes in support quality or pricing?"</td></tr>
-          <tr class="question-row"><td>"How do you bill for services beyond standard managed IT — VoIP, bandwidth, per-user cloud?"</td></tr>
-          <tr class="question-row"><td>"Are you locked into a Kaseya bundle, and do you actually use all the products?"</td></tr>
-          <tr class="question-row"><td>"What's your process for collecting payments? How automated is it?"</td></tr>
-          <tr class="question-row"><td>"If a prospect wants IT + VoIP + internet on one invoice, how do you produce that?"</td></tr>
-        </table>
-      </div>
-    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--red);box-shadow:0 0 6px var(--red)"></div><span class="section-label" style="color:var(--red)">Discovery Questions (Landmines)</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr class="q-row"><td>"Since the Kaseya acquisition, have you noticed changes in support quality or pricing?"</td></tr>
+      <tr class="q-row"><td>"How do you bill for services beyond standard managed IT — VoIP, bandwidth, per-user cloud?"</td></tr>
+      <tr class="q-row"><td>"Are you locked into a Kaseya bundle, and do you actually use all the products?"</td></tr>
+      <tr class="q-row"><td>"What's your process for collecting payments? How automated is it?"</td></tr>
+      <tr class="q-row"><td>"If a prospect wants IT + VoIP + internet on one invoice, how do you produce that?"</td></tr>
+    </table></div></div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--red)"></span>Why We Win / Why We Lose</h3><span class="chevron">▼</span></div>
-      <div class="section-body">
-        <table class="split-table">
-          <tr><th style="color:var(--green)">🏆 Why We Win</th><th style="color:var(--red)">⚠️ Why We Lose</th></tr>
-          <tr><td>MSPs adding services beyond IT can't bill in Autotask</td><td>Datto/Kaseya ecosystem is sticky</td></tr>
-          <tr><td>Integrated payments vs. none</td><td>Autotask ticketing is very mature</td></tr>
-          <tr><td>No Kaseya-style contract traps</td><td>Kaseya 365 bundle hard to beat per-unit</td></tr>
-          <tr><td>Modern platform vs. aging UI</td><td>IT-only MSPs don't need Rev.io's billing</td></tr>
-          <tr><td>Quote-to-cash eliminates reconciliation</td><td></td></tr>
-        </table>
-      </div>
-    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--red);box-shadow:0 0 6px var(--red)"></div><span class="section-label" style="color:var(--red)">Why We Win / Why We Lose</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th style="color:var(--green)">🏆 WHY WE WIN</th><th style="color:var(--red)">⚠️ WHY WE LOSE</th></tr>
+      <tr><td>MSPs adding services beyond IT can't bill in Autotask</td><td>Datto/Kaseya ecosystem is sticky</td></tr>
+      <tr><td>Integrated payments vs. none</td><td>Autotask ticketing is very mature</td></tr>
+      <tr><td>No Kaseya-style contract traps</td><td>Kaseya 365 bundle hard to beat per-unit</td></tr>
+      <tr><td>Modern platform vs. aging UI</td><td>IT-only MSPs don't need Rev.io billing</td></tr>
+      <tr><td>Quote-to-cash eliminates reconciliation</td><td></td></tr>
+    </table></div></div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--red)"></span>Objection Handling</h3><span class="chevron">▼</span></div>
-      <div class="section-body">
-        <table>
-          <tr><th>Objection</th><th>Response</th></tr>
-          <tr><td class="objection-col">"We're locked into Kaseya 365"</td><td>"That's exactly the lock-in Kaseya designed. But can Autotask bill for growing VoIP or cloud? Run the numbers on billing leakage and manual work."</td></tr>
-          <tr><td class="objection-col">"Autotask works fine for ticketing"</td><td>"Ticketing is table stakes. Can your PSA handle complex billing, payments, and multi-service quoting? That's where real revenue impact is."</td></tr>
-          <tr><td class="objection-col">"Datto RMM integration is critical"</td><td>"Rev.io integrates with leading RMMs. You don't give up RMM — you gain a billing and payments engine Autotask will never have."</td></tr>
-        </table>
-      </div>
-    </div>
-
-    <div class="internal-note">📋 Win stories: Document Autotask migration wins. Highlight Kaseya frustration as trigger, billing limitations as pain, revenue uplift from new services.</div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--red);box-shadow:0 0 6px var(--red)"></div><span class="section-label" style="color:var(--red)">Objection Handling</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Objection</th><th>Response</th></tr>
+      <tr><td class="obj-col">"We're locked into Kaseya 365"</td><td>"That's the lock-in Kaseya designed. Can Autotask bill for growing VoIP or cloud? Run the numbers on billing leakage and manual work."</td></tr>
+      <tr><td class="obj-col">"Autotask works fine for ticketing"</td><td>"Ticketing is table stakes. Can your PSA handle complex billing, payments, and multi-service quoting? That's the real revenue impact."</td></tr>
+      <tr><td class="obj-col">"Datto RMM integration is critical"</td><td>"Rev.io integrates with leading RMMs. You don't give up RMM — you gain a billing and payments engine Autotask will never have."</td></tr>
+    </table></div></div>
+    <div class="internal-note">📋 Document Autotask migration wins. Kaseya frustration as trigger, billing limitations as pain, revenue uplift.</div>
   </div>
 
-  <!-- ═══════════ HALOPSA ═══════════ -->
-  <div id="halopsa" class="tab-panel">
-    <div class="summary-row">
-      <div class="summary-card"><div class="label">Founded</div><div class="value" style="color:var(--purple)">1994</div><div class="sub">Stowmarket, UK</div></div>
-      <div class="summary-card"><div class="label">Customers</div><div class="value" style="color:var(--purple)">3–5K</div><div class="sub">MSPs (rapidly growing)</div></div>
-      <div class="summary-card"><div class="label">Target</div><div class="value" style="font-size:18px;color:var(--white)">5–100</div><div class="sub">technicians · strong UK/EU</div></div>
-      <div class="summary-card"><div class="label">Pricing</div><div class="value" style="font-size:18px;color:var(--white)">$69–119</div><div class="sub">/agent/month · ALL inclusive</div></div>
-      <div class="summary-card"><div class="label">Positioning</div><div class="value" style="font-size:14px;color:var(--purple)">Anti-CW</div><div class="sub">Modern alternative to legacy PSAs</div></div>
+  <!-- ═══════ HALOPSA ═══════ -->
+  <div id="hp" class="tab-panel">
+    <div class="summary-bar">
+      <div class="sum-item"><div class="sum-label">Founded</div><div class="sum-val" style="color:var(--purple);text-shadow:0 0 15px rgba(191,90,242,0.4)">1994</div><div class="sum-sub">Stowmarket, UK</div></div>
+      <div class="sum-item"><div class="sum-label">Customers</div><div class="sum-val" style="color:var(--purple)">3–5K</div><div class="sum-sub">rapidly growing</div></div>
+      <div class="sum-item"><div class="sum-label">Sweet Spot</div><div class="sum-val">5–100</div><div class="sum-sub">technicians · UK/EU + NA</div></div>
+      <div class="sum-item"><div class="sum-label">Pricing</div><div class="sum-val">$69–119</div><div class="sum-sub">/agent/mo · ALL inclusive</div></div>
+      <div class="sum-item"><div class="sum-label">Position</div><div class="sum-val" style="font-size:14px;color:var(--purple)">Anti-CW</div><div class="sum-sub">Modern alternative</div></div>
     </div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--purple)"></span>Strengths vs. Weaknesses</h3><span class="chevron">▼</span></div>
-      <div class="section-body">
-        <table class="split-table">
-          <tr><th style="color:var(--green)">✅ Strengths</th><th style="color:var(--red)">❌ Weaknesses</th></tr>
-          <tr><td>All-inclusive pricing — no hidden costs</td><td>No native complex billing (no usage-based, telecom)</td></tr>
-          <tr><td>Modern, clean UI — best-in-class UX</td><td>No integrated payment processing</td></tr>
-          <tr><td>Rapid feature development</td><td>UK-based — timezone support challenges for NA</td></tr>
-          <tr><td>Strong integrations (RMMs, M365, IT Glue)</td><td>Smaller company — less brand recognition</td></tr>
-          <tr><td>AI features included free</td><td>Reporting complex to configure</td></tr>
-          <tr><td>On-premise option available</td><td>Still maturing vs. 20+ year incumbents</td></tr>
-          <tr><td>Highly customizable workflows</td><td>Asset/inventory less robust</td></tr>
-        </table>
-      </div>
-    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--purple);box-shadow:0 0 6px var(--purple)"></div><span class="section-label" style="color:var(--purple)">Strengths vs. Weaknesses</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th style="color:var(--green)">✅ STRENGTHS</th><th style="color:var(--red)">❌ WEAKNESSES</th></tr>
+      <tr><td>All-inclusive pricing — no hidden costs</td><td>No native complex billing</td></tr>
+      <tr><td>Modern, clean UI — best-in-class UX</td><td>No integrated payment processing</td></tr>
+      <tr><td>Rapid feature development</td><td>UK-based — timezone challenges for NA</td></tr>
+      <tr><td>Strong integrations (RMMs, M365, IT Glue)</td><td>Smaller company — less brand recognition</td></tr>
+      <tr><td>AI features included free</td><td>Reporting complex to configure</td></tr>
+      <tr><td>On-premise option</td><td>Still maturing vs. 20+ year incumbents</td></tr>
+      <tr><td>Highly customizable workflows</td><td>Asset/inventory less robust</td></tr>
+    </table></div></div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--purple)"></span>Feature Comparison</h3><span class="chevron">▼</span></div>
-      <div class="section-body">
-        <table>
-          <tr><th>Capability</th><th>Rev.io</th><th>HaloPSA</th></tr>
-          <tr><td>Complex billing</td><td><span class="badge badge-green">✅ Native</span> Telecom-grade</td><td><span class="badge badge-red">❌</span> Basic invoicing only</td></tr>
-          <tr><td>Integrated payments</td><td><span class="badge badge-green">✅ TRX Services</span></td><td><span class="badge badge-red">❌</span> Stripe/GoCardless only</td></tr>
-          <tr><td>Quote-to-cash</td><td><span class="badge badge-green">✅ Full automation</span></td><td><span class="badge badge-yellow">⚠️</span> Quoting but no payment automation</td></tr>
-          <tr><td>Multi-service support</td><td><span class="badge badge-green">✅ IT + telecom + cloud</span></td><td><span class="badge badge-red">❌</span> IT-focused only</td></tr>
-          <tr><td>Ticketing</td><td><span class="badge badge-green">✅ Full</span></td><td><span class="badge badge-green">✅ Excellent + AI</span></td></tr>
-          <tr><td>All-inclusive pricing</td><td><span class="badge badge-yellow">⚠️</span> Contact for pricing</td><td><span class="badge badge-green">✅ Transparent</span></td></tr>
-          <tr><td>UI/UX</td><td><span class="badge badge-green">✅ Modern</span></td><td><span class="badge badge-green">✅ Best PSA UI</span></td></tr>
-          <tr><td>On-premise</td><td><span class="badge badge-red">❌</span> Cloud only</td><td><span class="badge badge-green">✅ Available</span></td></tr>
-        </table>
-      </div>
-    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--purple);box-shadow:0 0 6px var(--purple)"></div><span class="section-label" style="color:var(--purple)">Feature Comparison</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Capability</th><th>Rev.io</th><th>HaloPSA</th></tr>
+      <tr><td>Complex billing</td><td><span class="pill pill-green">✅ NATIVE</span></td><td><span class="pill pill-red">❌</span> Basic invoicing</td></tr>
+      <tr><td>Integrated payments</td><td><span class="pill pill-green">✅ TRX</span></td><td><span class="pill pill-red">❌</span> Stripe/GoCardless</td></tr>
+      <tr><td>Quote-to-cash</td><td><span class="pill pill-green">✅ FULL</span></td><td><span class="pill pill-yellow">⚠️</span> No payment automation</td></tr>
+      <tr><td>Multi-service</td><td><span class="pill pill-green">✅ IT+TELECOM+CLOUD</span></td><td><span class="pill pill-red">❌</span> IT-focused only</td></tr>
+      <tr><td>Ticketing</td><td><span class="pill pill-green">✅</span></td><td><span class="pill pill-green">✅ EXCELLENT + AI</span></td></tr>
+      <tr><td>All-inclusive pricing</td><td><span class="pill pill-yellow">⚠️</span> Contact</td><td><span class="pill pill-green">✅ TRANSPARENT</span></td></tr>
+      <tr><td>UI/UX</td><td><span class="pill pill-green">✅ MODERN</span></td><td><span class="pill pill-green">✅ BEST PSA UI</span></td></tr>
+      <tr><td>On-premise</td><td><span class="pill pill-red">❌</span> Cloud only</td><td><span class="pill pill-green">✅</span></td></tr>
+    </table></div></div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--purple)"></span>Discovery Questions (Landmines)</h3><span class="chevron">▼</span></div>
-      <div class="section-body">
-        <table>
-          <tr class="question-row"><td>"HaloPSA is great for ticketing — but how are you billing for bundled services with usage-based components?"</td></tr>
-          <tr class="question-row"><td>"When you invoice for managed IT + VoIP + internet, how many systems are involved?"</td></tr>
-          <tr class="question-row"><td>"How do you process payments? Automated from invoice to collection?"</td></tr>
-          <tr class="question-row"><td>"If you need to rate CDRs or bandwidth for billing, how would you do that?"</td></tr>
-          <tr class="question-row"><td>"As you scale beyond pure managed IT, does HaloPSA grow with you?"</td></tr>
-        </table>
-      </div>
-    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--purple);box-shadow:0 0 6px var(--purple)"></div><span class="section-label" style="color:var(--purple)">Discovery Questions (Landmines)</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr class="q-row"><td>"HaloPSA is great for ticketing — but how are you billing for bundled services with usage-based components?"</td></tr>
+      <tr class="q-row"><td>"When you invoice for managed IT + VoIP + internet, how many systems are involved?"</td></tr>
+      <tr class="q-row"><td>"How do you process payments? Automated from invoice to collection?"</td></tr>
+      <tr class="q-row"><td>"If you need to rate CDRs or bandwidth for billing, how would you do that?"</td></tr>
+      <tr class="q-row"><td>"As you scale beyond pure managed IT, does HaloPSA grow with you?"</td></tr>
+    </table></div></div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--purple)"></span>Why We Win / Why We Lose</h3><span class="chevron">▼</span></div>
-      <div class="section-body">
-        <table class="split-table">
-          <tr><th style="color:var(--green)">🏆 Why We Win</th><th style="color:var(--red)">⚠️ Why We Lose</th></tr>
-          <tr><td>Multi-service MSPs need billing Halo doesn't have</td><td>HaloPSA UI/UX is genuinely best-in-class</td></tr>
-          <tr><td>Integrated payments vs. none</td><td>Transparent all-inclusive pricing is attractive</td></tr>
-          <tr><td>Quote-to-cash for complex bundles</td><td>IT-only MSPs don't need Rev.io billing</td></tr>
-          <tr><td>Single invoice for IT + telecom + cloud</td><td>Strong momentum and community goodwill</td></tr>
-          <tr><td>Purpose-built for revenue ops</td><td>Rapid dev closes feature gaps quickly</td></tr>
-        </table>
-      </div>
-    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--purple);box-shadow:0 0 6px var(--purple)"></div><span class="section-label" style="color:var(--purple)">Why We Win / Why We Lose</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th style="color:var(--green)">🏆 WHY WE WIN</th><th style="color:var(--red)">⚠️ WHY WE LOSE</th></tr>
+      <tr><td>Multi-service MSPs need billing Halo doesn't have</td><td>HaloPSA UI/UX is genuinely best-in-class</td></tr>
+      <tr><td>Integrated payments vs. none</td><td>Transparent all-inclusive pricing</td></tr>
+      <tr><td>Quote-to-cash for complex bundles</td><td>IT-only MSPs don't need Rev.io billing</td></tr>
+      <tr><td>Single invoice for IT + telecom + cloud</td><td>Strong momentum and goodwill</td></tr>
+      <tr><td>Purpose-built for revenue ops</td><td>Rapid dev closes gaps quickly</td></tr>
+    </table></div></div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--purple)"></span>Objection Handling</h3><span class="chevron">▼</span></div>
-      <div class="section-body">
-        <table>
-          <tr><th>Objection</th><th>Response</th></tr>
-          <tr><td class="objection-col">"HaloPSA has best UI and all features"</td><td>"'All features included' doesn't include complex billing for multi-service revenue. That's not on their roadmap — it's our DNA."</td></tr>
-          <tr><td class="objection-col">"HaloPSA is cheaper"</td><td>"Total cost: HaloPSA + billing system + payment processor + reconciliation labor. Rev.io replaces all of that."</td></tr>
-          <tr><td class="objection-col">"We just switched from ConnectWise"</td><td>"Smart move for ticketing. But as you add VoIP or cloud, same billing wall. Rev.io is your revenue engine when you're ready."</td></tr>
-        </table>
-      </div>
-    </div>
-
-    <div class="internal-note">📋 Win stories: MSPs that outgrew HaloPSA billing when adding telecom/cloud. Position as "you'll eventually need us."</div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--purple);box-shadow:0 0 6px var(--purple)"></div><span class="section-label" style="color:var(--purple)">Objection Handling</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Objection</th><th>Response</th></tr>
+      <tr><td class="obj-col">"HaloPSA has best UI and all features"</td><td>"'All features included' doesn't include complex billing for multi-service revenue. That's not on their roadmap — it's our DNA."</td></tr>
+      <tr><td class="obj-col">"HaloPSA is cheaper"</td><td>"Total cost: HaloPSA + billing system + payment processor + reconciliation labor. Rev.io replaces all of that."</td></tr>
+      <tr><td class="obj-col">"We just switched from ConnectWise"</td><td>"Smart move for ticketing. But as you add VoIP or cloud, same billing wall. Rev.io is your revenue engine when ready."</td></tr>
+    </table></div></div>
+    <div class="internal-note">📋 MSPs that outgrew HaloPSA billing when adding telecom/cloud. "You'll eventually need us" positioning.</div>
   </div>
 
-  <!-- ═══════════ SYNCRO ═══════════ -->
-  <div id="syncro" class="tab-panel">
-    <div class="summary-row">
-      <div class="summary-card"><div class="label">Founded</div><div class="value" style="color:var(--orange)">2017</div><div class="sub">Seattle, WA</div></div>
-      <div class="summary-card"><div class="label">Customers</div><div class="value" style="color:var(--orange)">5–8K</div><div class="sub">MSPs</div></div>
-      <div class="summary-card"><div class="label">Target</div><div class="value" style="font-size:18px;color:var(--white)">1–25</div><div class="sub">technicians · break-fix → managed</div></div>
-      <div class="summary-card"><div class="label">Pricing</div><div class="value" style="font-size:18px;color:var(--white)">$129–189</div><div class="sub">/user/month · no contracts</div></div>
-      <div class="summary-card"><div class="label">Positioning</div><div class="value" style="font-size:14px;color:var(--orange)">Simple</div><div class="sub">RMM + PSA combined, anti-complexity</div></div>
+  <!-- ═══════ SYNCRO ═══════ -->
+  <div id="sy" class="tab-panel">
+    <div class="summary-bar">
+      <div class="sum-item"><div class="sum-label">Founded</div><div class="sum-val" style="color:var(--orange);text-shadow:0 0 15px rgba(255,107,53,0.4)">2017</div><div class="sum-sub">Seattle, WA</div></div>
+      <div class="sum-item"><div class="sum-label">Customers</div><div class="sum-val" style="color:var(--orange)">5–8K</div><div class="sum-sub">MSPs</div></div>
+      <div class="sum-item"><div class="sum-label">Sweet Spot</div><div class="sum-val">1–25</div><div class="sum-sub">technicians</div></div>
+      <div class="sum-item"><div class="sum-label">Pricing</div><div class="sum-val">$129–189</div><div class="sum-sub">/user/mo · no contracts</div></div>
+      <div class="sum-item"><div class="sum-label">Position</div><div class="sum-val" style="font-size:14px;color:var(--orange)">Simple</div><div class="sum-sub">RMM+PSA combined</div></div>
     </div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--orange)"></span>Strengths vs. Weaknesses</h3><span class="chevron">▼</span></div>
-      <div class="section-body">
-        <table class="split-table">
-          <tr><th style="color:var(--green)">✅ Strengths</th><th style="color:var(--red)">❌ Weaknesses</th></tr>
-          <tr><td>Simple, transparent pricing — no contracts</td><td>Limited billing — basic invoicing only</td></tr>
-          <tr><td>Easy setup — fast time to value</td><td>Not built for multi-service providers</td></tr>
-          <tr><td>Combined RMM + PSA</td><td>Lacks depth for larger MSPs</td></tr>
-          <tr><td>Good for small MSPs starting out</td><td>Payments via third-party only</td></tr>
-          <tr><td>50+ integrations</td><td>Reporting is basic</td></tr>
-          <tr><td>Month-to-month flexibility</td><td>Project management minimal</td></tr>
-          <tr><td>AI ticket search</td><td>MSPs outgrow at 20–30 techs</td></tr>
-        </table>
-      </div>
-    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--orange);box-shadow:0 0 6px var(--orange)"></div><span class="section-label" style="color:var(--orange)">Strengths vs. Weaknesses</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th style="color:var(--green)">✅ STRENGTHS</th><th style="color:var(--red)">❌ WEAKNESSES</th></tr>
+      <tr><td>Simple, transparent pricing — no contracts</td><td>Limited billing — basic invoicing only</td></tr>
+      <tr><td>Easy setup — fast time to value</td><td>Not built for multi-service providers</td></tr>
+      <tr><td>Combined RMM + PSA</td><td>Lacks depth for larger MSPs</td></tr>
+      <tr><td>Good for small MSPs starting out</td><td>Payments via third-party only</td></tr>
+      <tr><td>50+ integrations</td><td>Reporting is basic</td></tr>
+      <tr><td>Month-to-month flexibility</td><td>Project management minimal</td></tr>
+      <tr><td>AI ticket search</td><td>Outgrown at 20–30 techs</td></tr>
+    </table></div></div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--orange)"></span>Feature Comparison</h3><span class="chevron">▼</span></div>
-      <div class="section-body">
-        <table>
-          <tr><th>Capability</th><th>Rev.io</th><th>Syncro</th></tr>
-          <tr><td>Complex billing</td><td><span class="badge badge-green">✅ Native</span> Telecom-grade</td><td><span class="badge badge-red">❌</span> Basic recurring only</td></tr>
-          <tr><td>Integrated payments</td><td><span class="badge badge-green">✅ TRX Services</span></td><td><span class="badge badge-yellow">⚠️</span> Worldpay/Stripe</td></tr>
-          <tr><td>Quote-to-cash</td><td><span class="badge badge-green">✅ Full lifecycle</span></td><td><span class="badge badge-red">❌</span> Basic estimates only</td></tr>
-          <tr><td>Multi-service support</td><td><span class="badge badge-green">✅ IT + VoIP + cloud</span></td><td><span class="badge badge-red">❌</span> Managed IT only</td></tr>
-          <tr><td>Ticketing</td><td><span class="badge badge-green">✅ Full</span></td><td><span class="badge badge-green">✅ Solid for SMB</span></td></tr>
-          <tr><td>RMM</td><td><span class="badge badge-yellow">⚠️</span> Third-party</td><td><span class="badge badge-green">✅ Native (unlimited)</span></td></tr>
-          <tr><td>Project management</td><td><span class="badge badge-green">✅</span></td><td><span class="badge badge-red">❌</span> Very basic</td></tr>
-          <tr><td>Scalability</td><td><span class="badge badge-green">✅ Scales with complexity</span></td><td><span class="badge badge-red">❌</span> Outgrown at 20–30 techs</td></tr>
-        </table>
-      </div>
-    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--orange);box-shadow:0 0 6px var(--orange)"></div><span class="section-label" style="color:var(--orange)">Feature Comparison</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Capability</th><th>Rev.io</th><th>Syncro</th></tr>
+      <tr><td>Complex billing</td><td><span class="pill pill-green">✅ NATIVE</span></td><td><span class="pill pill-red">❌</span> Basic recurring only</td></tr>
+      <tr><td>Integrated payments</td><td><span class="pill pill-green">✅ TRX</span></td><td><span class="pill pill-yellow">⚠️</span> Worldpay/Stripe</td></tr>
+      <tr><td>Quote-to-cash</td><td><span class="pill pill-green">✅ FULL</span></td><td><span class="pill pill-red">❌</span> Basic estimates</td></tr>
+      <tr><td>Multi-service</td><td><span class="pill pill-green">✅</span></td><td><span class="pill pill-red">❌</span> Managed IT only</td></tr>
+      <tr><td>Ticketing</td><td><span class="pill pill-green">✅</span></td><td><span class="pill pill-green">✅ SOLID FOR SMB</span></td></tr>
+      <tr><td>RMM</td><td><span class="pill pill-yellow">⚠️</span> Third-party</td><td><span class="pill pill-green">✅ NATIVE UNLIMITED</span></td></tr>
+      <tr><td>Project management</td><td><span class="pill pill-green">✅</span></td><td><span class="pill pill-red">❌</span> Very basic</td></tr>
+      <tr><td>Scalability</td><td><span class="pill pill-green">✅ SCALES</span></td><td><span class="pill pill-red">❌</span> Ceiling at 20-30 techs</td></tr>
+    </table></div></div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--orange)"></span>Discovery Questions (Landmines)</h3><span class="chevron">▼</span></div>
-      <div class="section-body">
-        <table>
-          <tr class="question-row"><td>"Now that you're growing and adding services beyond managed IT, is Syncro keeping up?"</td></tr>
-          <tr class="question-row"><td>"How do you bill clients with per-device, per-user, and usage-based services on one invoice?"</td></tr>
-          <tr class="question-row"><td>"When you quote managed IT + VoIP + cloud, can Syncro handle that?"</td></tr>
-          <tr class="question-row"><td>"How much time does your team spend on billing and payment follow-up each month?"</td></tr>
-          <tr class="question-row"><td>"Do you feel like you've outgrown Syncro? Where are the pain points?"</td></tr>
-        </table>
-      </div>
-    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--orange);box-shadow:0 0 6px var(--orange)"></div><span class="section-label" style="color:var(--orange)">Discovery Questions (Landmines)</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr class="q-row"><td>"Now that you're growing and adding services beyond managed IT, is Syncro keeping up?"</td></tr>
+      <tr class="q-row"><td>"How do you bill clients with per-device, per-user, and usage-based services on one invoice?"</td></tr>
+      <tr class="q-row"><td>"When you quote managed IT + VoIP + cloud, can Syncro handle that?"</td></tr>
+      <tr class="q-row"><td>"How much time does your team spend on billing and payment follow-up each month?"</td></tr>
+      <tr class="q-row"><td>"Do you feel like you've outgrown Syncro? Where are the pain points?"</td></tr>
+    </table></div></div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--orange)"></span>Why We Win / Why We Lose</h3><span class="chevron">▼</span></div>
-      <div class="section-body">
-        <table class="split-table">
-          <tr><th style="color:var(--green)">🏆 Why We Win</th><th style="color:var(--red)">⚠️ Why We Lose</th></tr>
-          <tr><td>Growing MSPs hit Syncro's ceiling fast</td><td>Simplicity + pricing hard to beat for small IT-only</td></tr>
-          <tr><td>Complex billing and payments built-in</td><td>Syncro includes RMM — Rev.io doesn't</td></tr>
-          <tr><td>Quote-to-cash for multi-service bundles</td><td>Month-to-month flexibility appeals to small shops</td></tr>
-          <tr><td>Rev.io scales as MSP grows</td><td>Under 10 techs don't need Rev.io</td></tr>
-          <tr><td>Single system for all revenue ops</td><td>"All-in-one" simpler for small teams</td></tr>
-        </table>
-      </div>
-    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--orange);box-shadow:0 0 6px var(--orange)"></div><span class="section-label" style="color:var(--orange)">Why We Win / Why We Lose</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th style="color:var(--green)">🏆 WHY WE WIN</th><th style="color:var(--red)">⚠️ WHY WE LOSE</th></tr>
+      <tr><td>Growing MSPs hit Syncro ceiling fast</td><td>Simplicity + pricing hard to beat for small IT-only</td></tr>
+      <tr><td>Complex billing and payments built-in</td><td>Syncro includes RMM — Rev.io doesn't</td></tr>
+      <tr><td>Quote-to-cash for multi-service bundles</td><td>Month-to-month appeals to small shops</td></tr>
+      <tr><td>Rev.io scales as MSP grows</td><td>Under 10 techs don't need Rev.io</td></tr>
+      <tr><td>Single system for all revenue ops</td><td>"All-in-one" simpler for small teams</td></tr>
+    </table></div></div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--orange)"></span>Objection Handling</h3><span class="chevron">▼</span></div>
-      <div class="section-body">
-        <table>
-          <tr><th>Objection</th><th>Response</th></tr>
-          <tr><td class="objection-col">"Syncro is simpler and includes RMM"</td><td>"Great for IT shops under 20 techs. But simple becomes limiting when you can't bill for VoIP or automate payments. Rev.io is where you graduate to."</td></tr>
-          <tr><td class="objection-col">"Syncro is cheaper"</td><td>"Add up: billing system + payment processor + reconciliation labor. Rev.io consolidates all of that."</td></tr>
-          <tr><td class="objection-col">"Too much effort to switch"</td><td>"Cost of staying on a platform you've outgrown is higher. How much revenue are you leaving on the table?"</td></tr>
-        </table>
-      </div>
-    </div>
-
-    <div class="internal-note">📋 Win stories: MSPs that graduated from Syncro when scaling + adding telecom/cloud. "Outgrowing your PSA" narrative.</div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--orange);box-shadow:0 0 6px var(--orange)"></div><span class="section-label" style="color:var(--orange)">Objection Handling</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Objection</th><th>Response</th></tr>
+      <tr><td class="obj-col">"Syncro is simpler and includes RMM"</td><td>"Great for IT shops under 20 techs. But simple becomes limiting when you can't bill for VoIP or automate payments. Rev.io is where you graduate to."</td></tr>
+      <tr><td class="obj-col">"Syncro is cheaper"</td><td>"Add up: billing system + payment processor + reconciliation labor. Rev.io consolidates all of that."</td></tr>
+      <tr><td class="obj-col">"Too much effort to switch"</td><td>"Cost of staying on a platform you've outgrown is higher. How much revenue are you leaving on the table?"</td></tr>
+    </table></div></div>
+    <div class="internal-note">📋 MSPs that graduated from Syncro when scaling + adding telecom/cloud. "Outgrowing your PSA" narrative.</div>
   </div>
 
-  <!-- ═══════════ SUPEROPS ═══════════ -->
-  <div id="superops" class="tab-panel">
-    <div class="summary-row">
-      <div class="summary-card"><div class="label">Founded</div><div class="value" style="color:var(--yellow)">2020</div><div class="sub">Claymont, DE / Chennai</div></div>
-      <div class="summary-card"><div class="label">Customers</div><div class="value" style="color:var(--yellow)">1.5–3K</div><div class="sub">MSPs (growing rapidly)</div></div>
-      <div class="summary-card"><div class="label">Target</div><div class="value" style="font-size:18px;color:var(--white)">5–50</div><div class="sub">technicians · tech-forward MSPs</div></div>
-      <div class="summary-card"><div class="label">Pricing</div><div class="value" style="font-size:18px;color:var(--white)">$89–179</div><div class="sub">/tech/month · per-endpoint option</div></div>
-      <div class="summary-card"><div class="label">Positioning</div><div class="value" style="font-size:14px;color:var(--yellow)">AI-First</div><div class="sub">Ex-Zoho engineers · Monica AI</div></div>
+  <!-- ═══════ SUPEROPS ═══════ -->
+  <div id="so" class="tab-panel">
+    <div class="summary-bar">
+      <div class="sum-item"><div class="sum-label">Founded</div><div class="sum-val" style="color:var(--yellow);text-shadow:0 0 15px rgba(255,215,0,0.4)">2020</div><div class="sum-sub">Claymont, DE / Chennai</div></div>
+      <div class="sum-item"><div class="sum-label">Customers</div><div class="sum-val" style="color:var(--yellow)">1.5–3K</div><div class="sum-sub">growing rapidly</div></div>
+      <div class="sum-item"><div class="sum-label">Sweet Spot</div><div class="sum-val">5–50</div><div class="sum-sub">technicians</div></div>
+      <div class="sum-item"><div class="sum-label">Pricing</div><div class="sum-val">$89–179</div><div class="sum-sub">/tech/mo · per-endpoint option</div></div>
+      <div class="sum-item"><div class="sum-label">Position</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">AI-First</div><div class="sum-sub">Ex-Zoho · Monica AI</div></div>
     </div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--yellow)"></span>Strengths vs. Weaknesses</h3><span class="chevron">▼</span></div>
-      <div class="section-body">
-        <table class="split-table">
-          <tr><th style="color:var(--green)">✅ Strengths</th><th style="color:var(--red)">❌ Weaknesses</th></tr>
-          <tr><td>Modern, AI-native — built from scratch</td><td>Young product — still maturing</td></tr>
-          <tr><td>Unified PSA + RMM + docs</td><td>Small customer base — less proven</td></tr>
-          <tr><td>Monica AI for ticket handling</td><td>No complex billing engine</td></tr>
-          <tr><td>Clean, modern UI</td><td>No integrated payments</td></tr>
-          <tr><td>Flexible pricing incl. per-endpoint</td><td>Limited integration ecosystem</td></tr>
-          <tr><td>MDM for Apple + Android</td><td>Support inconsistent (India timezone)</td></tr>
-          <tr><td>30% first-year startup discount</td><td>Less mature PM and reporting</td></tr>
-        </table>
-      </div>
-    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--yellow);box-shadow:0 0 6px var(--yellow)"></div><span class="section-label" style="color:var(--yellow)">Strengths vs. Weaknesses</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th style="color:var(--green)">✅ STRENGTHS</th><th style="color:var(--red)">❌ WEAKNESSES</th></tr>
+      <tr><td>Modern, AI-native — built from scratch</td><td>Young product — still maturing</td></tr>
+      <tr><td>Unified PSA + RMM + docs</td><td>Small customer base — less proven</td></tr>
+      <tr><td>Monica AI for ticket handling</td><td>No complex billing engine</td></tr>
+      <tr><td>Clean, modern UI</td><td>No integrated payments</td></tr>
+      <tr><td>Flexible pricing incl. per-endpoint</td><td>Limited integration ecosystem</td></tr>
+      <tr><td>MDM for Apple + Android</td><td>Support inconsistent (India timezone)</td></tr>
+      <tr><td>30% first-year startup discount</td><td>Less mature PM and reporting</td></tr>
+    </table></div></div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--yellow)"></span>Feature Comparison</h3><span class="chevron">▼</span></div>
-      <div class="section-body">
-        <table>
-          <tr><th>Capability</th><th>Rev.io</th><th>SuperOps</th></tr>
-          <tr><td>Complex billing</td><td><span class="badge badge-green">✅ Native</span> Telecom-grade</td><td><span class="badge badge-red">❌</span> Basic invoicing only</td></tr>
-          <tr><td>Integrated payments</td><td><span class="badge badge-green">✅ TRX Services</span></td><td><span class="badge badge-red">❌</span> None</td></tr>
-          <tr><td>Quote-to-cash</td><td><span class="badge badge-green">✅ Full lifecycle</span></td><td><span class="badge badge-red">❌</span> Basic; no automation</td></tr>
-          <tr><td>Multi-service support</td><td><span class="badge badge-green">✅ IT + VoIP + cloud</span></td><td><span class="badge badge-red">❌</span> IT/MSP only</td></tr>
-          <tr><td>Ticketing</td><td><span class="badge badge-green">✅ Full</span></td><td><span class="badge badge-green">✅ Modern + AI</span></td></tr>
-          <tr><td>RMM</td><td><span class="badge badge-yellow">⚠️</span> Third-party</td><td><span class="badge badge-green">✅ Native</span></td></tr>
-          <tr><td>AI features</td><td><span class="badge badge-yellow">⚠️</span> Developing</td><td><span class="badge badge-green">✅ Monica AI</span></td></tr>
-          <tr><td>IT documentation</td><td><span class="badge badge-yellow">⚠️</span> Third-party</td><td><span class="badge badge-green">✅ Built-in</span></td></tr>
-          <tr><td>MDM</td><td><span class="badge badge-red">❌</span></td><td><span class="badge badge-green">✅ Apple + Android</span></td></tr>
-        </table>
-      </div>
-    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--yellow);box-shadow:0 0 6px var(--yellow)"></div><span class="section-label" style="color:var(--yellow)">Feature Comparison</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Capability</th><th>Rev.io</th><th>SuperOps</th></tr>
+      <tr><td>Complex billing</td><td><span class="pill pill-green">✅ NATIVE</span></td><td><span class="pill pill-red">❌</span> Basic invoicing</td></tr>
+      <tr><td>Integrated payments</td><td><span class="pill pill-green">✅ TRX</span></td><td><span class="pill pill-red">❌</span> None</td></tr>
+      <tr><td>Quote-to-cash</td><td><span class="pill pill-green">✅ FULL</span></td><td><span class="pill pill-red">❌</span> Basic; no automation</td></tr>
+      <tr><td>Multi-service</td><td><span class="pill pill-green">✅</span></td><td><span class="pill pill-red">❌</span> IT/MSP only</td></tr>
+      <tr><td>Ticketing</td><td><span class="pill pill-green">✅</span></td><td><span class="pill pill-green">✅ MODERN + AI</span></td></tr>
+      <tr><td>RMM</td><td><span class="pill pill-yellow">⚠️</span> Third-party</td><td><span class="pill pill-green">✅ NATIVE</span></td></tr>
+      <tr><td>AI features</td><td><span class="pill pill-yellow">⚠️</span> Developing</td><td><span class="pill pill-green">✅ MONICA AI</span></td></tr>
+      <tr><td>IT documentation</td><td><span class="pill pill-yellow">⚠️</span></td><td><span class="pill pill-green">✅ BUILT-IN</span></td></tr>
+      <tr><td>MDM</td><td><span class="pill pill-red">❌</span></td><td><span class="pill pill-green">✅ APPLE+ANDROID</span></td></tr>
+    </table></div></div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--yellow)"></span>Discovery Questions (Landmines)</h3><span class="chevron">▼</span></div>
-      <div class="section-body">
-        <table>
-          <tr class="question-row"><td>"SuperOps has great AI and RMM — but how are you handling billing beyond flat-rate managed IT?"</td></tr>
-          <tr class="question-row"><td>"When you add VoIP or internet, can SuperOps generate a single invoice with usage-based charges?"</td></tr>
-          <tr class="question-row"><td>"How mature is SuperOps' reporting for multi-service revenue visibility?"</td></tr>
-          <tr class="question-row"><td>"What's your payment collection workflow? How long from invoice to cash?"</td></tr>
-          <tr class="question-row"><td>"SuperOps is a startup — how comfortable are you with their long-term viability?"</td></tr>
-        </table>
-      </div>
-    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--yellow);box-shadow:0 0 6px var(--yellow)"></div><span class="section-label" style="color:var(--yellow)">Discovery Questions (Landmines)</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr class="q-row"><td>"SuperOps has great AI and RMM — but how are you handling billing beyond flat-rate managed IT?"</td></tr>
+      <tr class="q-row"><td>"When you add VoIP or internet, can SuperOps generate a single invoice with usage-based charges?"</td></tr>
+      <tr class="q-row"><td>"How mature is SuperOps' reporting for multi-service revenue visibility?"</td></tr>
+      <tr class="q-row"><td>"What's your payment collection workflow? How long from invoice to cash?"</td></tr>
+      <tr class="q-row"><td>"SuperOps is a startup — how comfortable are you with their long-term viability?"</td></tr>
+    </table></div></div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--yellow)"></span>Why We Win / Why We Lose</h3><span class="chevron">▼</span></div>
-      <div class="section-body">
-        <table class="split-table">
-          <tr><th style="color:var(--green)">🏆 Why We Win</th><th style="color:var(--red)">⚠️ Why We Lose</th></tr>
-          <tr><td>Diversifying MSPs need billing SuperOps can't provide</td><td>Unified PSA+RMM+docs+AI is compelling for IT-only</td></tr>
-          <tr><td>Integrated payments — SuperOps has nothing</td><td>Monica AI genuinely ahead of most PSAs</td></tr>
-          <tr><td>Deep telecom/billing DNA — proven at scale</td><td>Modern UI appeals to legacy-tired MSPs</td></tr>
-          <tr><td>Established company vs. startup risk</td><td>Per-endpoint pricing cheaper for large counts</td></tr>
-          <tr><td>Quote-to-cash for complex bundles</td><td>IT+RMM-only MSPs find SuperOps sufficient</td></tr>
-        </table>
-      </div>
-    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--yellow);box-shadow:0 0 6px var(--yellow)"></div><span class="section-label" style="color:var(--yellow)">Why We Win / Why We Lose</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th style="color:var(--green)">🏆 WHY WE WIN</th><th style="color:var(--red)">⚠️ WHY WE LOSE</th></tr>
+      <tr><td>Diversifying MSPs need billing SuperOps can't provide</td><td>Unified PSA+RMM+docs+AI compelling for IT-only</td></tr>
+      <tr><td>Integrated payments — SuperOps has nothing</td><td>Monica AI genuinely ahead</td></tr>
+      <tr><td>Deep telecom/billing DNA — proven at scale</td><td>Modern UI appeals to legacy-tired MSPs</td></tr>
+      <tr><td>Established company vs. startup risk</td><td>Per-endpoint pricing cheaper for large counts</td></tr>
+      <tr><td>Quote-to-cash for complex bundles</td><td>IT+RMM-only MSPs find SuperOps sufficient</td></tr>
+    </table></div></div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--yellow)"></span>Objection Handling</h3><span class="chevron">▼</span></div>
-      <div class="section-body">
-        <table>
-          <tr><th>Objection</th><th>Response</th></tr>
-          <tr><td class="objection-col">"Monica AI is amazing"</td><td>"AI for ticket triage is nice, but doesn't solve billing. Rev.io automates the entire revenue lifecycle — quoting, complex billing, payment collection."</td></tr>
-          <tr><td class="objection-col">"SuperOps includes RMM + PSA"</td><td>"Great for monitoring + ticketing. But billing, payments, multi-service quoting? Still separate systems. Rev.io consolidates the revenue side."</td></tr>
-          <tr><td class="objection-col">"SuperOps is the future"</td><td>"Modern UI is great, but your business runs on revenue. Can SuperOps bill for VoIP, process payments, single invoice for IT + telecom + cloud? Rev.io can."</td></tr>
-        </table>
-      </div>
-    </div>
-
-    <div class="internal-note">📋 Win stories: MSPs that chose Rev.io over SuperOps for billing complexity, or started with SuperOps and added Rev.io for billing/payments.</div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--yellow);box-shadow:0 0 6px var(--yellow)"></div><span class="section-label" style="color:var(--yellow)">Objection Handling</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Objection</th><th>Response</th></tr>
+      <tr><td class="obj-col">"Monica AI is amazing"</td><td>"AI for ticket triage is nice, but doesn't solve billing. Rev.io automates the entire revenue lifecycle — quoting, complex billing, payment collection."</td></tr>
+      <tr><td class="obj-col">"SuperOps includes RMM + PSA"</td><td>"Great for monitoring + ticketing. But billing, payments, multi-service quoting? Still need separate systems. Rev.io consolidates revenue."</td></tr>
+      <tr><td class="obj-col">"SuperOps is the future"</td><td>"Modern UI is great, but your business runs on revenue. Can SuperOps bill for VoIP, process payments, single invoice for IT + telecom + cloud?"</td></tr>
+    </table></div></div>
+    <div class="internal-note">📋 MSPs that chose Rev.io over SuperOps for billing complexity, or added Rev.io for billing/payments.</div>
   </div>
 
-  <!-- ═══════════ QUICK REF ═══════════ -->
-  <div id="quickref" class="tab-panel">
-    <div class="summary-row">
-      <div class="summary-card" style="border-color:var(--green)"><div class="label">Competitors</div><div class="value" style="color:var(--green)">5</div><div class="sub">battle cards</div></div>
-      <div class="summary-card"><div class="label">Rev.io Edge</div><div class="value" style="font-size:16px;color:var(--white)">Billing</div><div class="sub">telecom-grade, native</div></div>
-      <div class="summary-card"><div class="label">Rev.io Edge</div><div class="value" style="font-size:16px;color:var(--white)">Payments</div><div class="sub">TRX Services built-in</div></div>
-      <div class="summary-card"><div class="label">Rev.io Edge</div><div class="value" style="font-size:16px;color:var(--white)">Quote→Cash</div><div class="sub">end-to-end automation</div></div>
-      <div class="summary-card"><div class="label">Rev.io Edge</div><div class="value" style="font-size:16px;color:var(--white)">Multi-Svc</div><div class="sub">IT + VoIP + internet + cloud</div></div>
+  <!-- ═══════ QUICK REF ═══════ -->
+  <div id="qr" class="tab-panel">
+    <div class="summary-bar">
+      <div class="sum-item highlight"><div class="sum-label">Battle Cards</div><div class="sum-val green">5</div><div class="sum-sub">competitors covered</div></div>
+      <div class="sum-item"><div class="sum-label">Edge #1</div><div class="sum-val" style="font-size:14px">Billing</div><div class="sum-sub">telecom-grade native</div></div>
+      <div class="sum-item"><div class="sum-label">Edge #2</div><div class="sum-val" style="font-size:14px">Payments</div><div class="sum-sub">TRX Services built-in</div></div>
+      <div class="sum-item"><div class="sum-label">Edge #3</div><div class="sum-val" style="font-size:14px">Quote→Cash</div><div class="sum-sub">end-to-end</div></div>
+      <div class="sum-item"><div class="sum-label">Edge #4</div><div class="sum-val" style="font-size:14px">Multi-Svc</div><div class="sum-sub">IT+VoIP+internet+cloud</div></div>
     </div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--green)"></span>Scenario Mapping — Which Card to Pull</h3><span class="chevron">▼</span></div>
-      <div class="section-body">
-        <table>
-          <tr><th>Scenario</th><th>Competitor</th><th>Key Angle</th></tr>
-          <tr><td>MSP deep in ConnectWise, frustrated with costs/contracts</td><td><span class="badge badge-blue">ConnectWise</span></td><td>Total cost of ownership; contract flexibility; native billing</td></tr>
-          <tr><td>MSP in Kaseya/Datto stack, concerned about direction</td><td><span class="badge badge-red">Autotask</span></td><td>Post-acquisition quality decline; billing limitations</td></tr>
-          <tr><td>MSP evaluating modern alternatives, loves HaloPSA's UI</td><td><span class="badge badge-purple">HaloPSA</span></td><td>"Great for ticketing, but where's the billing?"</td></tr>
-          <tr><td>Small MSP outgrowing their first PSA tool</td><td><span class="badge badge-orange">Syncro</span></td><td>Graduation story; scaling beyond IT-only</td></tr>
-          <tr><td>Tech-forward MSP attracted to AI/modern platforms</td><td><span class="badge badge-yellow">SuperOps</span></td><td>"AI is nice, revenue automation is essential"</td></tr>
-        </table>
-      </div>
-    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--green);box-shadow:0 0 6px var(--green)"></div><span class="section-label" style="color:var(--green)">Scenario Mapping — Which Card to Pull</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Scenario</th><th>Competitor</th><th>Key Angle</th></tr>
+      <tr><td>MSP deep in CW ecosystem, frustrated with costs/contracts</td><td><span class="pill pill-cyan">CONNECTWISE</span></td><td>Total cost of ownership; contract flexibility; native billing</td></tr>
+      <tr><td>MSP in Kaseya/Datto stack, concerned about direction</td><td><span class="pill pill-red">AUTOTASK</span></td><td>Post-acquisition decline; billing limitations</td></tr>
+      <tr><td>MSP evaluating modern alternatives, loves HaloPSA UI</td><td><span class="pill pill-purple">HALOPSA</span></td><td>"Great for ticketing, but where's the billing?"</td></tr>
+      <tr><td>Small MSP outgrowing their first PSA tool</td><td><span class="pill pill-orange">SYNCRO</span></td><td>Graduation story; scaling beyond IT-only</td></tr>
+      <tr><td>Tech-forward MSP attracted to AI/modern platforms</td><td><span class="pill pill-yellow">SUPEROPS</span></td><td>"AI is nice, revenue automation is essential"</td></tr>
+    </table></div></div>
 
-    <div class="qr-card">
+    <div class="narrative-card">
       <h4>🎯 The Universal Narrative</h4>
       <p>"[Competitor] is a solid PSA for pure-play managed IT. But the MSP market is evolving — providers are adding VoIP, internet, cloud, and cybersecurity services. When that happens, you need a platform that can bill for complexity, collect payments automatically, and give you a single pane of glass for all revenue. That's Rev.io."</p>
     </div>
 
-    <div class="qr-card">
+    <div class="narrative-card">
       <h4>🏆 The Ideal Rev.io Customer</h4>
       <p>Multi-service provider (MSP/telecom/cloud) frustrated with billing workarounds, running 2-3 systems for revenue operations, manually reconciling invoices, and losing revenue because they can't easily bill for new services. Think Fuse.Cloud — managed IT + VoIP + internet, all billed through Rev.io.</p>
     </div>
 
-    <div class="section-block">
-      <div class="section-header" onclick="toggleSection(this)"><h3><span class="dot" style="background:var(--green)"></span>Universal Differentiators</h3><span class="chevron">▼</span></div>
-      <div class="section-body">
-        <table>
-          <tr><th>Differentiator</th><th>Why It Matters</th></tr>
-          <tr><td><span class="badge badge-green">✅</span> Native complex billing</td><td>No competitor has telecom-grade billing — this is Rev.io's DNA</td></tr>
-          <tr><td><span class="badge badge-green">✅</span> Integrated payments (TRX)</td><td>Every competitor requires third-party payment processing</td></tr>
-          <tr><td><span class="badge badge-green">✅</span> Full quote-to-cash</td><td>Single workflow: quote → contract → billing → payment</td></tr>
-          <tr><td><span class="badge badge-green">✅</span> Multi-service support</td><td>IT + VoIP + internet + cloud — one platform, one invoice</td></tr>
-          <tr><td><span class="badge badge-green">✅</span> No predatory contracts</td><td>CW and Kaseya notorious for lock-in — Rev.io isn't</td></tr>
-        </table>
-      </div>
-    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--green);box-shadow:0 0 6px var(--green)"></div><span class="section-label" style="color:var(--green)">Universal Differentiators</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Differentiator</th><th>Why It Matters</th></tr>
+      <tr><td><span class="pill pill-green">✅</span> Native complex billing</td><td>No competitor has telecom-grade billing — this is Rev.io's DNA</td></tr>
+      <tr><td><span class="pill pill-green">✅</span> Integrated payments (TRX)</td><td>Every competitor requires third-party payment processing</td></tr>
+      <tr><td><span class="pill pill-green">✅</span> Full quote-to-cash</td><td>Single workflow: quote → contract → billing → payment</td></tr>
+      <tr><td><span class="pill pill-green">✅</span> Multi-service support</td><td>IT + VoIP + internet + cloud — one platform, one invoice</td></tr>
+      <tr><td><span class="pill pill-green">✅</span> No predatory contracts</td><td>CW and Kaseya notorious for lock-in — Rev.io isn't</td></tr>
+    </table></div></div>
   </div>
 
-</div><!-- /container -->
-
-<div class="footer">
-  Rev.io Sales Enablement · February 2026 · Generated by <a href="#">Robin 🦸🏻‍♂️</a>
 </div>
 
+<div class="footer">REV.IO SALES ENABLEMENT · FEBRUARY 2026 · GENERATED BY ROBIN 🦸🏻‍♂️</div>
+
 <script>
-function showTab(tabId, btn) {
+function showTab(id, btn) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(tabId).classList.add('active');
+  document.getElementById(id).classList.add('active');
   btn.classList.add('active');
 }
-
-function toggleSection(header) {
+function toggle(header) {
   header.classList.toggle('collapsed');
-  const body = header.nextElementSibling;
-  body.classList.toggle('collapsed');
+  header.nextElementSibling.classList.toggle('collapsed');
 }
 </script>
-
 </body>
 </html>
