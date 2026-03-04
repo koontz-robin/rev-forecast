@@ -176,7 +176,7 @@
       <div class="header-date">INTERNAL USE ONLY · FEBRUARY 2026</div>
     </div>
     <h1>Competitor <span>Battle Cards</span></h1>
-    <div class="header-sub">11 competitors · MSP & Integrator verticals · Discovery questions · Objection handling</div>
+    <div class="header-sub">22 competitors · MSP & Integrator verticals · Discovery questions · Objection handling</div>
   </div>
 
   <div class="category-bar">
@@ -196,12 +196,23 @@
 
   <div id="cat-integrator" style="display:none">
     <div class="tab-bar" id="int-tabs">
-      <button class="tab-btn active" onclick="showTab('sendona',this,'int-tabs')"><span class="tab-dot" style="background:var(--cyan);box-shadow:0 0 6px var(--cyan)"></span>Sendona</button>
-      <button class="tab-btn" onclick="showTab('workhorse',this,'int-tabs')"><span class="tab-dot" style="background:var(--red);box-shadow:0 0 6px var(--red)"></span>Workhorse</button>
-      <button class="tab-btn" onclick="showTab('jobber',this,'int-tabs')"><span class="tab-dot" style="background:var(--purple);box-shadow:0 0 6px var(--purple)"></span>Jobber</button>
-      <button class="tab-btn" onclick="showTab('simpro',this,'int-tabs')"><span class="tab-dot" style="background:var(--orange);box-shadow:0 0 6px var(--orange)"></span>Simpro</button>
-      <button class="tab-btn" onclick="showTab('prox360',this,'int-tabs')"><span class="tab-dot" style="background:var(--yellow);box-shadow:0 0 6px var(--yellow)"></span>Prox360</button>
-      <button class="tab-btn" onclick="showTab('alarmbiller',this,'int-tabs')"><span class="tab-dot" style="background:var(--green);box-shadow:0 0 6px var(--green)"></span>Alarmbiller</button>
+      <button class="tab-btn active" onclick="showTab('int-alarmbiller',this,'int-tabs')"><span class="tab-dot" style="background:var(--cyan);box-shadow:0 0 6px var(--cyan)"></span>AlarmBiller</button>
+      <button class="tab-btn" onclick="showTab('int-buildops',this,'int-tabs')"><span class="tab-dot" style="background:var(--red);box-shadow:0 0 6px var(--red)"></span>BuildOps</button>
+      <button class="tab-btn" onclick="showTab('int-cornerstone',this,'int-tabs')"><span class="tab-dot" style="background:var(--purple);box-shadow:0 0 6px var(--purple)"></span>Cornerstone</button>
+      <button class="tab-btn" onclick="showTab('int-fieldedge',this,'int-tabs')"><span class="tab-dot" style="background:var(--orange);box-shadow:0 0 6px var(--orange)"></span>FieldEdge</button>
+      <button class="tab-btn" onclick="showTab('int-housecallpro',this,'int-tabs')"><span class="tab-dot" style="background:var(--yellow);box-shadow:0 0 6px var(--yellow)"></span>Housecall Pro</button>
+      <button class="tab-btn" onclick="showTab('int-ipoint',this,'int-tabs')"><span class="tab-dot" style="background:var(--green);box-shadow:0 0 6px var(--green)"></span>IPoint</button>
+      <button class="tab-btn" onclick="showTab('int-jobber',this,'int-tabs')"><span class="tab-dot" style="background:var(--cyan);box-shadow:0 0 6px var(--cyan)"></span>Jobber</button>
+      <button class="tab-btn" onclick="showTab('int-managely',this,'int-tabs')"><span class="tab-dot" style="background:var(--red);box-shadow:0 0 6px var(--red)"></span>Managely</button>
+      <button class="tab-btn" onclick="showTab('int-microkey',this,'int-tabs')"><span class="tab-dot" style="background:var(--purple);box-shadow:0 0 6px var(--purple)"></span>Microkey</button>
+      <button class="tab-btn" onclick="showTab('int-portalio',this,'int-tabs')"><span class="tab-dot" style="background:var(--orange);box-shadow:0 0 6px var(--orange)"></span>Portal.io</button>
+      <button class="tab-btn" onclick="showTab('int-project360',this,'int-tabs')"><span class="tab-dot" style="background:var(--yellow);box-shadow:0 0 6px var(--yellow)"></span>Project360</button>
+      <button class="tab-btn" onclick="showTab('int-securitytrax',this,'int-tabs')"><span class="tab-dot" style="background:var(--green);box-shadow:0 0 6px var(--green)"></span>Security Trax</button>
+      <button class="tab-btn" onclick="showTab('int-sedona',this,'int-tabs')"><span class="tab-dot" style="background:var(--cyan);box-shadow:0 0 6px var(--cyan)"></span>Sedona</button>
+      <button class="tab-btn" onclick="showTab('int-servicefusion',this,'int-tabs')"><span class="tab-dot" style="background:var(--red);box-shadow:0 0 6px var(--red)"></span>Service Fusion</button>
+      <button class="tab-btn" onclick="showTab('int-simpro',this,'int-tabs')"><span class="tab-dot" style="background:var(--orange);box-shadow:0 0 6px var(--orange)"></span>Simpro</button>
+      <button class="tab-btn" onclick="showTab('int-workhorse',this,'int-tabs')"><span class="tab-dot" style="background:var(--purple);box-shadow:0 0 6px var(--purple)"></span>Workhorse</button>
+      <button class="tab-btn" onclick="showTab('int-zoho',this,'int-tabs')"><span class="tab-dot" style="background:var(--yellow);box-shadow:0 0 6px var(--yellow)"></span>Zoho</button>
     </div>
   </div>
 
@@ -584,53 +595,319 @@
 
 </div>
 
-  <!-- ═══════ INTEGRATOR PLACEHOLDERS ═══════ -->
-  <div id="sendona" class="tab-panel">
+  <!-- ═══════ INTEGRATOR BATTLE CARDS ═══════ -->
+
+  <!-- AlarmBiller (Bold Group) -->
+  <div id="int-alarmbiller" class="tab-panel active">
     <div class="summary-bar">
-      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--cyan);text-shadow:0 0 15px rgba(0,229,255,0.4)">Sendona</div><div class="sum-sub">Integrator vertical</div></div>
-      <div class="sum-item"><div class="sum-label">Status</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">PENDING</div><div class="sum-sub">Research in progress</div></div>
+      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--cyan);text-shadow:0 0 15px rgba(0,229,255,0.4)">AlarmBiller</div><div class="sum-sub">Bold Group · Integrator</div></div>
+      <div class="sum-item"><div class="sum-label">Vertical</div><div class="sum-val" style="font-size:14px;color:var(--cyan)">Security/Alarm</div><div class="sum-sub">Billing-focused</div></div>
+      <div class="sum-item"><div class="sum-label">Threat Level</div><div class="sum-val" style="font-size:14px;color:var(--green)">LOW</div><div class="sum-sub">Outdated platform</div></div>
     </div>
-    <div class="section-card"><div class="placeholder"><div class="icon">🔍</div><h3>Sendona</h3><p>Battle card coming soon. Send competitor intel, pricing info, or customer feedback to Robin and this card will be populated with full analysis.</p></div></div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--cyan);box-shadow:0 0 6px var(--cyan)"></div><span class="section-label" style="color:var(--cyan)">Rev.io Advantages</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Area</th><th>AlarmBiller Weakness</th><th>Rev.io Advantage</th></tr>
+      <tr><td>Platform</td><td><span class="pill pill-red">❌</span> Outdated; mobile app glitchy & non-responsive</td><td><span class="pill pill-green">✅</span> Modern platform with robust mobile app</td></tr>
+      <tr><td>RMR Billing</td><td><span class="pill pill-red">❌</span> Manual RMR billing</td><td><span class="pill pill-green">✅ AUTOMATED</span> RMR billing engine</td></tr>
+      <tr><td>Inventory</td><td><span class="pill pill-red">❌</span> No inventory management</td><td><span class="pill pill-green">✅</span> Full inventory suite with POs</td></tr>
+      <tr><td>CRM</td><td><span class="pill pill-red">❌</span> No easy opportunity-to-quote flow</td><td><span class="pill pill-green">✅</span> Robust CRM with full customer history & file folders</td></tr>
+      <tr><td>Sales Pipeline</td><td><span class="pill pill-red">❌</span> Cannot manage opportunities effectively</td><td><span class="pill pill-green">✅</span> Full opportunity tracking & asset history</td></tr>
+    </table></div></div>
+    <div class="internal-note">📋 Bold Group product — customers on AlarmBiller are often legacy alarm companies ripe for modernization.</div>
   </div>
 
-  <div id="workhorse" class="tab-panel">
+  <!-- BuildOps -->
+  <div id="int-buildops" class="tab-panel">
     <div class="summary-bar">
-      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--red);text-shadow:0 0 15px rgba(255,68,68,0.4)">Workhorse</div><div class="sum-sub">Integrator vertical</div></div>
-      <div class="sum-item"><div class="sum-label">Status</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">PENDING</div><div class="sum-sub">Research in progress</div></div>
+      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--red);text-shadow:0 0 15px rgba(255,68,68,0.4)">BuildOps</div><div class="sum-sub">Contractor software</div></div>
+      <div class="sum-item"><div class="sum-label">Vertical</div><div class="sum-val" style="font-size:14px;color:var(--red)">General Contractor</div><div class="sum-sub">Not security/AV specific</div></div>
+      <div class="sum-item"><div class="sum-label">Threat Level</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">MED</div><div class="sum-sub">Good marketing, weak fit</div></div>
     </div>
-    <div class="section-card"><div class="placeholder"><div class="icon">🔍</div><h3>Workhorse</h3><p>Battle card coming soon. Send competitor intel, pricing info, or customer feedback to Robin and this card will be populated with full analysis.</p></div></div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--red);box-shadow:0 0 6px var(--red)"></div><span class="section-label" style="color:var(--red)">Rev.io Advantages</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Area</th><th>BuildOps Weakness</th><th>Rev.io Advantage</th></tr>
+      <tr><td>Industry Focus</td><td><span class="pill pill-red">❌</span> Not specific to Security/AV — generic contractor tool</td><td><span class="pill pill-green">✅</span> Purpose-built for security & AV integrators (400+)</td></tr>
+      <tr><td>DocuSign</td><td><span class="pill pill-red">❌</span> No DocuSign integration</td><td><span class="pill pill-green">✅</span> E-signature capabilities</td></tr>
+      <tr><td>Tech Management</td><td><span class="pill pill-yellow">⚠️</span> Basic technician management</td><td><span class="pill pill-green">✅</span> Group techs, flexible scheduling</td></tr>
+      <tr><td>Inventory</td><td><span class="pill pill-yellow">⚠️</span> Limited inventory</td><td><span class="pill pill-green">✅</span> Full inventory with Purchase Orders</td></tr>
+    </table></div></div>
+    <div class="internal-note">📋 BuildOps advertises to general contractors — not built for recurring revenue models in security/AV.</div>
   </div>
 
-  <div id="jobber" class="tab-panel">
+  <!-- Cornerstone -->
+  <div id="int-cornerstone" class="tab-panel">
     <div class="summary-bar">
-      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--purple);text-shadow:0 0 15px rgba(191,90,242,0.4)">Jobber</div><div class="sum-sub">Integrator vertical</div></div>
-      <div class="sum-item"><div class="sum-label">Status</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">PENDING</div><div class="sum-sub">Research in progress</div></div>
+      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--purple);text-shadow:0 0 15px rgba(191,90,242,0.4)">Cornerstone</div><div class="sum-sub">Integrator vertical</div></div>
+      <div class="sum-item"><div class="sum-label">Vertical</div><div class="sum-val" style="font-size:14px;color:var(--purple)">Security</div><div class="sum-sub">Legacy platform</div></div>
+      <div class="sum-item"><div class="sum-label">Threat Level</div><div class="sum-val" style="font-size:14px;color:var(--green)">LOW</div><div class="sum-sub">Outdated UI, manual billing</div></div>
     </div>
-    <div class="section-card"><div class="placeholder"><div class="icon">🔍</div><h3>Jobber</h3><p>Battle card coming soon. Send competitor intel, pricing info, or customer feedback to Robin and this card will be populated with full analysis.</p></div></div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--purple);box-shadow:0 0 6px var(--purple)"></div><span class="section-label" style="color:var(--purple)">Rev.io Advantages</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Area</th><th>Cornerstone Weakness</th><th>Rev.io Advantage</th></tr>
+      <tr><td>Billing</td><td><span class="pill pill-red">❌</span> Manual billing — they mail out bills</td><td><span class="pill pill-green">✅ AUTOMATED</span> RMR + electronic invoicing</td></tr>
+      <tr><td>UI/UX</td><td><span class="pill pill-red">❌</span> Outdated and hard to navigate</td><td><span class="pill pill-green">✅</span> Modern, intuitive interface</td></tr>
+      <tr><td>AI</td><td><span class="pill pill-red">❌</span> No AI capabilities</td><td><span class="pill pill-green">✅</span> AI omni-present throughout platform</td></tr>
+      <tr><td>Accounting</td><td><span class="pill pill-red">❌</span> No QBO sync</td><td><span class="pill pill-green">✅</span> Bi-directional sync to QuickBooks Online</td></tr>
+      <tr><td>Customer Portal</td><td><span class="pill pill-red">❌</span> None</td><td><span class="pill pill-green">✅</span> Portal for payments & service requests</td></tr>
+    </table></div></div>
+    <div class="internal-note">📋 Cornerstone customers still mailing paper bills — easy modernization win.</div>
   </div>
 
-  <div id="simpro" class="tab-panel">
+  <!-- FieldEdge -->
+  <div id="int-fieldedge" class="tab-panel">
     <div class="summary-bar">
-      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--orange);text-shadow:0 0 15px rgba(255,107,53,0.4)">Simpro</div><div class="sum-sub">Integrator vertical</div></div>
-      <div class="sum-item"><div class="sum-label">Status</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">PENDING</div><div class="sum-sub">Research in progress</div></div>
+      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--orange);text-shadow:0 0 15px rgba(255,107,53,0.4)">FieldEdge</div><div class="sum-sub">Field service mgmt</div></div>
+      <div class="sum-item"><div class="sum-label">Vertical</div><div class="sum-val" style="font-size:14px;color:var(--orange)">HVAC/Plumbing</div><div class="sum-sub">Crossing into security</div></div>
+      <div class="sum-item"><div class="sum-label">Threat Level</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">MED</div><div class="sum-sub">Known brand, weak features</div></div>
     </div>
-    <div class="section-card"><div class="placeholder"><div class="icon">🔍</div><h3>Simpro</h3><p>Battle card coming soon. Send competitor intel, pricing info, or customer feedback to Robin and this card will be populated with full analysis.</p></div></div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--orange);box-shadow:0 0 6px var(--orange)"></div><span class="section-label" style="color:var(--orange)">Rev.io Advantages</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Area</th><th>FieldEdge Weakness</th><th>Rev.io Advantage</th></tr>
+      <tr><td>Inventory</td><td><span class="pill pill-red">❌</span> Lacking true inventory management</td><td><span class="pill pill-green">✅</span> Full inventory suite with POs & multi-location</td></tr>
+      <tr><td>Project Mgmt</td><td><span class="pill pill-red">❌</span> No project management — can't track phases</td><td><span class="pill pill-green">✅</span> Full project management with phase tracking</td></tr>
+      <tr><td>Support</td><td><span class="pill pill-red">❌</span> Non-responsive support</td><td><span class="pill pill-green">✅</span> Dedicated onboarding & support team</td></tr>
+      <tr><td>Quoting</td><td><span class="pill pill-red">❌</span> Buggy quoting — doesn't work properly</td><td><span class="pill pill-green">✅</span> Reliable quote-to-cash workflow</td></tr>
+    </table></div></div>
+    <div class="internal-note">📋 FieldEdge support is a known pain point — lean into dedicated onboarding story.</div>
   </div>
 
-  <div id="prox360" class="tab-panel">
+  <!-- Housecall Pro -->
+  <div id="int-housecallpro" class="tab-panel">
     <div class="summary-bar">
-      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--yellow);text-shadow:0 0 15px rgba(255,215,0,0.4)">Prox360</div><div class="sum-sub">Integrator vertical</div></div>
-      <div class="sum-item"><div class="sum-label">Status</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">PENDING</div><div class="sum-sub">Research in progress</div></div>
+      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--yellow);text-shadow:0 0 15px rgba(255,215,0,0.4)">Housecall Pro</div><div class="sum-sub">Home services</div></div>
+      <div class="sum-item"><div class="sum-label">Vertical</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">Small/Residential</div><div class="sum-sub">Catered to small companies</div></div>
+      <div class="sum-item"><div class="sum-label">Threat Level</div><div class="sum-val" style="font-size:14px;color:var(--green)">LOW</div><div class="sum-sub">Not enterprise-grade</div></div>
     </div>
-    <div class="section-card"><div class="placeholder"><div class="icon">🔍</div><h3>Prox360</h3><p>Battle card coming soon. Send competitor intel, pricing info, or customer feedback to Robin and this card will be populated with full analysis.</p></div></div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--yellow);box-shadow:0 0 6px var(--yellow)"></div><span class="section-label" style="color:var(--yellow)">Rev.io Advantages</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Area</th><th>Housecall Pro Weakness</th><th>Rev.io Advantage</th></tr>
+      <tr><td>Onboarding</td><td><span class="pill pill-red">❌</span> Self-service onboarding — no dedicated resource</td><td><span class="pill pill-green">✅</span> Dedicated onboarding resource assigned</td></tr>
+      <tr><td>Inventory</td><td><span class="pill pill-red">❌</span> Basic inventory</td><td><span class="pill pill-green">✅</span> Robust inventory management</td></tr>
+      <tr><td>Scale</td><td><span class="pill pill-red">❌</span> Catered to smaller companies</td><td><span class="pill pill-green">✅</span> Scales with 400+ integrators</td></tr>
+      <tr><td>Project Mgmt</td><td><span class="pill pill-red">❌</span> No ability to track projects</td><td><span class="pill pill-green">✅</span> Full project management</td></tr>
+      <tr><td>Support</td><td><span class="pill pill-red">❌</span> Outsourced support</td><td><span class="pill pill-green">✅</span> In-house support team</td></tr>
+      <tr><td>Payments</td><td><span class="pill pill-red">❌</span> Inaccurate payment processing — glitches</td><td><span class="pill pill-green">✅</span> Reliable integrated payment processing</td></tr>
+    </table></div></div>
+    <div class="internal-note">📋 Housecall Pro payment glitches are a cash flow killer — use this as a wedge.</div>
   </div>
 
-  <div id="alarmbiller" class="tab-panel">
+  <!-- IPoint -->
+  <div id="int-ipoint" class="tab-panel">
     <div class="summary-bar">
-      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val green">Alarmbiller</div><div class="sum-sub">Integrator vertical</div></div>
-      <div class="sum-item"><div class="sum-label">Status</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">PENDING</div><div class="sum-sub">Research in progress</div></div>
+      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--green);text-shadow:0 0 15px rgba(0,255,136,0.4)">IPoint</div><div class="sum-sub">Integrator vertical</div></div>
+      <div class="sum-item"><div class="sum-label">Vertical</div><div class="sum-val" style="font-size:14px;color:var(--green)">Low Voltage</div><div class="sum-sub">AV/Security niche</div></div>
+      <div class="sum-item"><div class="sum-label">Threat Level</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">MED</div><div class="sum-sub">Industry known, weak ops</div></div>
     </div>
-    <div class="section-card"><div class="placeholder"><div class="icon">🔍</div><h3>Alarmbiller</h3><p>Battle card coming soon. Send competitor intel, pricing info, or customer feedback to Robin and this card will be populated with full analysis.</p></div></div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--green);box-shadow:0 0 6px var(--green)"></div><span class="section-label" style="color:var(--green)">Rev.io Advantages</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Area</th><th>IPoint Weakness</th><th>Rev.io Advantage</th></tr>
+      <tr><td>CRM</td><td><span class="pill pill-red">❌</span> Cannot manage opportunities like PSA</td><td><span class="pill pill-green">✅</span> Full opportunity & pipeline management</td></tr>
+      <tr><td>Inventory</td><td><span class="pill pill-red">❌</span> Cannot reserve items to customer locations</td><td><span class="pill pill-green">✅</span> Reserve inventory per location</td></tr>
+      <tr><td>Mobile App</td><td><span class="pill pill-red">❌</span> Glitchy, doesn't function well</td><td><span class="pill pill-green">✅</span> Robust mobile app with inventory access</td></tr>
+      <tr><td>Service Orders</td><td><span class="pill pill-red">❌</span> Manual — no templates</td><td><span class="pill pill-green">✅</span> Templates to streamline service orders</td></tr>
+      <tr><td>Project Mgmt</td><td><span class="pill pill-red">❌</span> Lacking project management</td><td><span class="pill pill-green">✅</span> Full project tracking</td></tr>
+      <tr><td>Invoicing/RMR</td><td><span class="pill pill-red">❌</span> Inaccurate/manual — no RMR automation</td><td><span class="pill pill-green">✅ AUTOMATED</span> RMR billing</td></tr>
+    </table></div></div>
+    <div class="internal-note">📋 IPoint's mobile app issues and manual service orders are major pain points for field teams.</div>
+  </div>
+
+  <!-- Jobber -->
+  <div id="int-jobber" class="tab-panel">
+    <div class="summary-bar">
+      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--cyan);text-shadow:0 0 15px rgba(0,229,255,0.4)">Jobber</div><div class="sum-sub">Field service</div></div>
+      <div class="sum-item"><div class="sum-label">Vertical</div><div class="sum-val" style="font-size:14px;color:var(--cyan)">Small Home Services</div><div class="sum-sub">$200-300/mo pricing</div></div>
+      <div class="sum-item"><div class="sum-label">Threat Level</div><div class="sum-val" style="font-size:14px;color:var(--green)">LOW</div><div class="sum-sub">Too small for serious integrators</div></div>
+    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--cyan);box-shadow:0 0 6px var(--cyan)"></div><span class="section-label" style="color:var(--cyan)">Rev.io Advantages</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Area</th><th>Jobber Weakness</th><th>Rev.io Advantage</th></tr>
+      <tr><td>Scale</td><td><span class="pill pill-red">❌</span> Catered to smaller companies ($200-300 pricing)</td><td><span class="pill pill-green">✅</span> Enterprise-grade for growing integrators</td></tr>
+      <tr><td>Tech Mgmt</td><td><span class="pill pill-red">❌</span> No true dispatch board or tech grouping</td><td><span class="pill pill-green">✅</span> Full dispatch board with tech grouping</td></tr>
+      <tr><td>Reporting</td><td><span class="pill pill-red">❌</span> No custom report builder</td><td><span class="pill pill-green">✅</span> Custom report builder</td></tr>
+      <tr><td>Project Mgmt</td><td><span class="pill pill-red">❌</span> No project management</td><td><span class="pill pill-green">✅</span> Full project management with phases</td></tr>
+      <tr><td>Inventory</td><td><span class="pill pill-red">❌</span> Non-existent inventory management</td><td><span class="pill pill-green">✅</span> Complete inventory suite</td></tr>
+    </table></div></div>
+    <div class="internal-note">📋 Jobber is a "starter" tool — position Rev.io as where integrators graduate to when they outgrow it.</div>
+  </div>
+
+  <!-- Managely (Bold Group) -->
+  <div id="int-managely" class="tab-panel">
+    <div class="summary-bar">
+      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--red);text-shadow:0 0 15px rgba(255,68,68,0.4)">Managely</div><div class="sum-sub">Bold Group · Integrator</div></div>
+      <div class="sum-item"><div class="sum-label">Vertical</div><div class="sum-val" style="font-size:14px;color:var(--red)">Security</div><div class="sum-sub">Stagnant platform</div></div>
+      <div class="sum-item"><div class="sum-label">Threat Level</div><div class="sum-val" style="font-size:14px;color:var(--green)">LOW</div><div class="sum-sub">Known inventory issues</div></div>
+    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--red);box-shadow:0 0 6px var(--red)"></div><span class="section-label" style="color:var(--red)">Rev.io Advantages</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Area</th><th>Managely Weakness</th><th>Rev.io Advantage</th></tr>
+      <tr><td>Inventory</td><td><span class="pill pill-red">❌</span> Non-functional — prospect lost $8K+ due to glitches</td><td><span class="pill pill-green">✅</span> Reliable inventory with full PO management</td></tr>
+      <tr><td>CRM</td><td><span class="pill pill-red">❌</span> Cannot manage opportunities</td><td><span class="pill pill-green">✅</span> Full CRM with opportunity tracking</td></tr>
+      <tr><td>Project Mgmt</td><td><span class="pill pill-red">❌</span> Lacking project management</td><td><span class="pill pill-green">✅</span> Complete project management</td></tr>
+      <tr><td>Accounting</td><td><span class="pill pill-red">❌</span> Cannot integrate to QBO</td><td><span class="pill pill-green">✅</span> Bi-directional QBO sync</td></tr>
+      <tr><td>Development</td><td><span class="pill pill-red">❌</span> Not making updates to the platform</td><td><span class="pill pill-green">✅</span> Active development roadmap</td></tr>
+    </table></div></div>
+    <div class="internal-note">📋 Real story: prospect lost $8K+ from Managely inventory glitches. Use this in discovery calls.</div>
+  </div>
+
+  <!-- Microkey -->
+  <div id="int-microkey" class="tab-panel">
+    <div class="summary-bar">
+      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--purple);text-shadow:0 0 15px rgba(191,90,242,0.4)">Microkey</div><div class="sum-sub">Modular platform</div></div>
+      <div class="sum-item"><div class="sum-label">Vertical</div><div class="sum-val" style="font-size:14px;color:var(--purple)">Security</div><div class="sum-sub">Expensive modular pricing</div></div>
+      <div class="sum-item"><div class="sum-label">Threat Level</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">MED</div><div class="sum-sub">Industry presence but costly</div></div>
+    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--purple);box-shadow:0 0 6px var(--purple)"></div><span class="section-label" style="color:var(--purple)">Rev.io Advantages</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Area</th><th>Microkey Weakness</th><th>Rev.io Advantage</th></tr>
+      <tr><td>Pricing</td><td><span class="pill pill-red">❌</span> Modular — typically 2x cost due to required modules</td><td><span class="pill pill-green">✅</span> All-in-one platform, no module nickel-and-diming</td></tr>
+      <tr><td>Inventory</td><td><span class="pill pill-red">❌</span> Non-existent inventory management</td><td><span class="pill pill-green">✅</span> Full inventory suite</td></tr>
+      <tr><td>CRM</td><td><span class="pill pill-red">❌</span> No ability to manage sales opportunities</td><td><span class="pill pill-green">✅</span> Full opportunity & pipeline management</td></tr>
+      <tr><td>Scheduling</td><td><span class="pill pill-red">❌</span> Difficult scheduling</td><td><span class="pill pill-green">✅</span> Flexible tech scheduling & dispatch</td></tr>
+      <tr><td>RMR Billing</td><td><span class="pill pill-red">❌</span> Manual RMR billing</td><td><span class="pill pill-green">✅ AUTOMATED</span> RMR</td></tr>
+      <tr><td>Customer History</td><td><span class="pill pill-red">❌</span> No good way to track records</td><td><span class="pill pill-green">✅</span> Complete customer history & file folders</td></tr>
+    </table></div></div>
+    <div class="internal-note">📋 Microkey's modular pricing doubles the cost — lead with TCO comparison.</div>
+  </div>
+
+  <!-- Portal.io -->
+  <div id="int-portalio" class="tab-panel">
+    <div class="summary-bar">
+      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--orange);text-shadow:0 0 15px rgba(255,107,53,0.4)">Portal.io</div><div class="sum-sub">Quoting-focused</div></div>
+      <div class="sum-item"><div class="sum-label">Vertical</div><div class="sum-val" style="font-size:14px;color:var(--orange)">AV/Security</div><div class="sum-sub">Quoting only</div></div>
+      <div class="sum-item"><div class="sum-label">Threat Level</div><div class="sum-val" style="font-size:14px;color:var(--green)">LOW</div><div class="sum-sub">Single-purpose tool</div></div>
+    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--orange);box-shadow:0 0 6px var(--orange)"></div><span class="section-label" style="color:var(--orange)">Rev.io Advantages</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Area</th><th>Portal.io Weakness</th><th>Rev.io Advantage</th></tr>
+      <tr><td>Scope</td><td><span class="pill pill-red">❌</span> Focused mainly on quoting only</td><td><span class="pill pill-green">✅</span> Full operational platform</td></tr>
+      <tr><td>Operations</td><td><span class="pill pill-red">❌</span> Scheduling, time tracking not built out</td><td><span class="pill pill-green">✅</span> Complete scheduling & time tracking</td></tr>
+      <tr><td>AI</td><td><span class="pill pill-red">❌</span> No AI</td><td><span class="pill pill-green">✅</span> AI omni-present throughout platform</td></tr>
+      <tr><td>RMR</td><td><span class="pill pill-red">❌</span> No RMR automation</td><td><span class="pill pill-green">✅ AUTOMATED</span> RMR billing</td></tr>
+      <tr><td>Inventory</td><td><span class="pill pill-red">❌</span> No inventory suite</td><td><span class="pill pill-green">✅</span> Full inventory, POs, multi-location</td></tr>
+      <tr><td>Accounting</td><td><span class="pill pill-red">❌</span> No QBO sync</td><td><span class="pill pill-green">✅</span> Bi-directional QuickBooks Online sync</td></tr>
+    </table></div></div>
+    <div class="internal-note">📋 Portal.io only does quoting — Rev.io replaces Portal.io + whatever ops tool they're using.</div>
+  </div>
+
+  <!-- Project360 -->
+  <div id="int-project360" class="tab-panel">
+    <div class="summary-bar">
+      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--yellow);text-shadow:0 0 15px rgba(255,215,0,0.4)">Project360</div><div class="sum-sub">Integrator vertical</div></div>
+      <div class="sum-item"><div class="sum-label">Vertical</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">Security/AV</div><div class="sum-sub">Stagnant platform</div></div>
+      <div class="sum-item"><div class="sum-label">Threat Level</div><div class="sum-val" style="font-size:14px;color:var(--green)">LOW</div><div class="sum-sub">No updates, many gaps</div></div>
+    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--yellow);box-shadow:0 0 6px var(--yellow)"></div><span class="section-label" style="color:var(--yellow)">Rev.io Advantages</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Area</th><th>Project360 Weakness</th><th>Rev.io Advantage</th></tr>
+      <tr><td>Billing</td><td><span class="pill pill-red">❌</span> All billing is manual</td><td><span class="pill pill-green">✅ AUTOMATED</span> RMR + billing engine</td></tr>
+      <tr><td>Inventory</td><td><span class="pill pill-red">❌</span> None — can't pull vendor pricing</td><td><span class="pill pill-green">✅</span> Full inventory with vendor pricing & POs</td></tr>
+      <tr><td>Accounting</td><td><span class="pill pill-red">❌</span> QuickBooks integration doesn't work well</td><td><span class="pill pill-green">✅</span> Bi-directional QBO sync</td></tr>
+      <tr><td>Project Mgmt</td><td><span class="pill pill-red">❌</span> No true project management</td><td><span class="pill pill-green">✅</span> Full project management with phases</td></tr>
+      <tr><td>UI/UX</td><td><span class="pill pill-red">❌</span> Hard to navigate</td><td><span class="pill pill-green">✅</span> Modern, intuitive interface</td></tr>
+      <tr><td>Development</td><td><span class="pill pill-red">❌</span> Not making updates to platform</td><td><span class="pill pill-green">✅</span> Active development roadmap</td></tr>
+      <tr><td>Multi-Location</td><td><span class="pill pill-red">❌</span> Cannot manage multi-location accounts</td><td><span class="pill pill-green">✅</span> Multi-location inventory tracking</td></tr>
+    </table></div></div>
+    <div class="internal-note">📋 Project360 is stagnant — "not making updates" is a death sentence. Easy migration story.</div>
+  </div>
+
+  <!-- Security Trax -->
+  <div id="int-securitytrax" class="tab-panel">
+    <div class="summary-bar">
+      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--green);text-shadow:0 0 15px rgba(0,255,136,0.4)">Security Trax</div><div class="sum-sub">Per-customer pricing</div></div>
+      <div class="sum-item"><div class="sum-label">Vertical</div><div class="sum-val" style="font-size:14px;color:var(--green)">Security</div><div class="sum-sub">Modular pricing</div></div>
+      <div class="sum-item"><div class="sum-label">Threat Level</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">MED</div><div class="sum-sub">Known but expensive</div></div>
+    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--green);box-shadow:0 0 6px var(--green)"></div><span class="section-label" style="color:var(--green)">Rev.io Advantages</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Area</th><th>Security Trax Weakness</th><th>Rev.io Advantage</th></tr>
+      <tr><td>Pricing</td><td><span class="pill pill-red">❌</span> Modular — charges per customer</td><td><span class="pill pill-green">✅</span> Typically saving clients 60%+ by switching</td></tr>
+      <tr><td>RMR</td><td><span class="pill pill-red">❌</span> Lack of RMR automation</td><td><span class="pill pill-green">✅ AUTOMATED</span> RMR billing</td></tr>
+      <tr><td>Accounting</td><td><span class="pill pill-red">❌</span> QBO integration costs extra</td><td><span class="pill pill-green">✅</span> QBO sync included</td></tr>
+      <tr><td>Support</td><td><span class="pill pill-red">❌</span> Non-responsive and lacking</td><td><span class="pill pill-green">✅</span> Responsive, dedicated support</td></tr>
+    </table></div></div>
+    <div class="internal-note">📋 Lead with 60%+ cost savings — this is a massive pricing win. Per-customer model kills them at scale.</div>
+  </div>
+
+  <!-- Sedona (Bold Group) -->
+  <div id="int-sedona" class="tab-panel">
+    <div class="summary-bar">
+      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--cyan);text-shadow:0 0 15px rgba(0,229,255,0.4)">Sedona</div><div class="sum-sub">Bold Group · Legacy</div></div>
+      <div class="sum-item"><div class="sum-label">Vertical</div><div class="sum-val" style="font-size:14px;color:var(--cyan)">Security</div><div class="sum-sub">Stagnant platform</div></div>
+      <div class="sum-item"><div class="sum-label">Threat Level</div><div class="sum-val" style="font-size:14px;color:var(--green)">LOW</div><div class="sum-sub">No updates, poor support</div></div>
+    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--cyan);box-shadow:0 0 6px var(--cyan)"></div><span class="section-label" style="color:var(--cyan)">Rev.io Advantages</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Area</th><th>Sedona Weakness</th><th>Rev.io Advantage</th></tr>
+      <tr><td>Support</td><td><span class="pill pill-red">❌</span> Lacking — not making updates</td><td><span class="pill pill-green">✅</span> Active development & responsive support</td></tr>
+      <tr><td>Inventory</td><td><span class="pill pill-red">❌</span> No true inventory management</td><td><span class="pill pill-green">✅</span> Full inventory suite with POs</td></tr>
+      <tr><td>Mobile App</td><td><span class="pill pill-red">❌</span> Lacking and glitchy</td><td><span class="pill pill-green">✅</span> Robust mobile app</td></tr>
+      <tr><td>Project Mgmt</td><td><span class="pill pill-red">❌</span> No project management</td><td><span class="pill pill-green">✅</span> Full project management</td></tr>
+      <tr><td>Dispatch</td><td><span class="pill pill-red">❌</span> Manual and cumbersome</td><td><span class="pill pill-green">✅</span> Flexible dispatch & scheduling</td></tr>
+      <tr><td>RMR</td><td><span class="pill pill-red">❌</span> Manual RMR</td><td><span class="pill pill-green">✅ AUTOMATED</span> RMR billing</td></tr>
+    </table></div></div>
+    <div class="internal-note">📋 Third Bold Group product on this list — Bold Group is not investing in their platforms. Easy displacement story.</div>
+  </div>
+
+  <!-- Service Fusion -->
+  <div id="int-servicefusion" class="tab-panel">
+    <div class="summary-bar">
+      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--red);text-shadow:0 0 15px rgba(255,68,68,0.4)">Service Fusion</div><div class="sum-sub">Field service mgmt</div></div>
+      <div class="sum-item"><div class="sum-label">Vertical</div><div class="sum-val" style="font-size:14px;color:var(--red)">General Field Service</div><div class="sum-sub">Not security-specific</div></div>
+      <div class="sum-item"><div class="sum-label">Threat Level</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">MED</div><div class="sum-sub">Many operational gaps</div></div>
+    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--red);box-shadow:0 0 6px var(--red)"></div><span class="section-label" style="color:var(--red)">Rev.io Advantages</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Area</th><th>Service Fusion Weakness</th><th>Rev.io Advantage</th></tr>
+      <tr><td>Data Quality</td><td><span class="pill pill-red">❌</span> Inaccurate data in customer mgmt & quoting</td><td><span class="pill pill-green">✅</span> Reliable data throughout platform</td></tr>
+      <tr><td>Time Tracking</td><td><span class="pill pill-red">❌</span> Can't separate travel vs. work time</td><td><span class="pill pill-green">✅</span> Granular time tracking</td></tr>
+      <tr><td>RMR</td><td><span class="pill pill-red">❌</span> Manual RMR</td><td><span class="pill pill-green">✅ AUTOMATED</span> RMR billing</td></tr>
+      <tr><td>Dispatch</td><td><span class="pill pill-red">❌</span> Manual dispatch — manual ticket creation</td><td><span class="pill pill-green">✅</span> Automated dispatch & templates</td></tr>
+      <tr><td>Asset Tracking</td><td><span class="pill pill-red">❌</span> No multi-location asset tracking</td><td><span class="pill pill-green">✅</span> Multi-location asset tracking</td></tr>
+      <tr><td>Project Mgmt</td><td><span class="pill pill-red">❌</span> No project management</td><td><span class="pill pill-green">✅</span> Full project management</td></tr>
+      <tr><td>Inventory</td><td><span class="pill pill-red">❌</span> Lacking inventory management</td><td><span class="pill pill-green">✅</span> Complete inventory suite</td></tr>
+    </table></div></div>
+    <div class="internal-note">📋 Service Fusion's data accuracy issues erode trust — lead with reliability story.</div>
+  </div>
+
+  <!-- Simpro -->
+  <div id="int-simpro" class="tab-panel">
+    <div class="summary-bar">
+      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--orange);text-shadow:0 0 15px rgba(255,107,53,0.4)">Simpro</div><div class="sum-sub">Field service mgmt</div></div>
+      <div class="sum-item"><div class="sum-label">Vertical</div><div class="sum-val" style="font-size:14px;color:var(--orange)">Trade Services</div><div class="sum-sub">Australian origin</div></div>
+      <div class="sum-item"><div class="sum-label">Threat Level</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">MED</div><div class="sum-sub">Well-known but limited</div></div>
+    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--orange);box-shadow:0 0 6px var(--orange)"></div><span class="section-label" style="color:var(--orange)">Rev.io Advantages</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Area</th><th>Simpro Weakness</th><th>Rev.io Advantage</th></tr>
+      <tr><td>Tech Mgmt</td><td><span class="pill pill-red">❌</span> No easy way to track utilization or schedule techs</td><td><span class="pill pill-green">✅</span> Full tech utilization tracking & scheduling</td></tr>
+      <tr><td>Inventory/POs</td><td><span class="pill pill-red">❌</span> Cannot manage POs or multiple vendors</td><td><span class="pill pill-green">✅</span> Multi-vendor PO management</td></tr>
+      <tr><td>CRM</td><td><span class="pill pill-red">❌</span> Cannot track sales opportunities</td><td><span class="pill pill-green">✅</span> Full CRM with opportunity tracking</td></tr>
+      <tr><td>Payments</td><td><span class="pill pill-red">❌</span> Requires specific payment vendors</td><td><span class="pill pill-green">✅</span> Native payment processing — vendor agnostic</td></tr>
+    </table></div></div>
+    <div class="internal-note">📋 Simpro forces specific payment vendors — Rev.io's native processing is a major differentiator.</div>
+  </div>
+
+  <!-- Workhorse -->
+  <div id="int-workhorse" class="tab-panel">
+    <div class="summary-bar">
+      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--purple);text-shadow:0 0 15px rgba(191,90,242,0.4)">Workhorse</div><div class="sum-sub">Startup · 5-10 employees</div></div>
+      <div class="sum-item"><div class="sum-label">Vertical</div><div class="sum-val" style="font-size:14px;color:var(--purple)">Small Integrators</div><div class="sum-sub">$200-300 for 2-3 users</div></div>
+      <div class="sum-item"><div class="sum-label">Threat Level</div><div class="sum-val" style="font-size:14px;color:var(--green)">LOW</div><div class="sum-sub">Tiny company, limited features</div></div>
+    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--purple);box-shadow:0 0 6px var(--purple)"></div><span class="section-label" style="color:var(--purple)">Rev.io Advantages</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Area</th><th>Workhorse Weakness</th><th>Rev.io Advantage</th></tr>
+      <tr><td>Inventory/POs</td><td><span class="pill pill-red">❌</span> Cannot cut Purchase Orders or manage inventory</td><td><span class="pill pill-green">✅</span> Full PO & inventory management</td></tr>
+      <tr><td>Support</td><td><span class="pill pill-red">❌</span> Outsourced support</td><td><span class="pill pill-green">✅</span> In-house, dedicated support</td></tr>
+      <tr><td>Accounting</td><td><span class="pill pill-red">❌</span> QuickBooks integration doesn't work</td><td><span class="pill pill-green">✅</span> Bi-directional QBO sync</td></tr>
+      <tr><td>Scale/Trust</td><td><span class="pill pill-red">❌</span> 5-10 employees, just started out</td><td><span class="pill pill-green">✅</span> 400+ integrators across the country</td></tr>
+      <tr><td>Scale</td><td><span class="pill pill-red">❌</span> Pricing for 2-3 users only ($200-300)</td><td><span class="pill pill-green">✅</span> Scales with business growth</td></tr>
+    </table></div></div>
+    <div class="internal-note">📋 Workhorse is a startup with 5-10 employees — company viability risk is a real concern for prospects.</div>
+  </div>
+
+  <!-- Zoho -->
+  <div id="int-zoho" class="tab-panel">
+    <div class="summary-bar">
+      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--yellow);text-shadow:0 0 15px rgba(255,215,0,0.4)">Zoho</div><div class="sum-sub">Generic SaaS suite</div></div>
+      <div class="sum-item"><div class="sum-label">Vertical</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">Horizontal</div><div class="sum-sub">Not industry specific</div></div>
+      <div class="sum-item"><div class="sum-label">Threat Level</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">MED</div><div class="sum-sub">Big brand, poor fit</div></div>
+    </div>
+    <div class="section-card"><div class="section-header" onclick="toggle(this)"><div class="section-title-row"><div class="section-dot" style="background:var(--yellow);box-shadow:0 0 6px var(--yellow)"></div><span class="section-label" style="color:var(--yellow)">Rev.io Advantages</span></div><span class="section-chevron">▼</span></div><div class="section-body"><table>
+      <tr><th>Area</th><th>Zoho Weakness</th><th>Rev.io Advantage</th></tr>
+      <tr><td>Pricing</td><td><span class="pill pill-red">❌</span> Modular — pay per sales/field service module etc.</td><td><span class="pill pill-green">✅</span> All-in-one platform for integrators</td></tr>
+      <tr><td>Industry Focus</td><td><span class="pill pill-red">❌</span> Not security/AV specific</td><td><span class="pill pill-green">✅</span> Purpose-built for 400+ integrators</td></tr>
+      <tr><td>Inventory</td><td><span class="pill pill-red">❌</span> No PO management</td><td><span class="pill pill-green">✅</span> Full inventory with multi-vendor POs</td></tr>
+      <tr><td>RMR</td><td><span class="pill pill-red">❌</span> No true RMR automation</td><td><span class="pill pill-green">✅ AUTOMATED</span> RMR billing</td></tr>
+      <tr><td>Service Tickets</td><td><span class="pill pill-red">❌</span> No flexibility with templates</td><td><span class="pill pill-green">✅</span> Flexible service ticket templates</td></tr>
+      <tr><td>Mobile App</td><td><span class="pill pill-red">❌</span> Limited mobile for field work</td><td><span class="pill pill-green">✅</span> Robust mobile with inventory access</td></tr>
+      <tr><td>Project Mgmt</td><td><span class="pill pill-yellow">⚠️</span> Separate module</td><td><span class="pill pill-green">✅</span> Integrated project management</td></tr>
+    </table></div></div>
+    <div class="internal-note">📋 Zoho is "jack of all trades, master of none" — not built for security/AV recurring revenue models.</div>
   </div>
 
 </div>
@@ -639,7 +916,7 @@
 
 <script>
 var currentCategory = 'msp';
-var defaultTabs = { msp: 'cw', integrator: 'sendona' };
+var defaultTabs = { msp: 'cw', integrator: 'int-alarmbiller' };
 
 function showCategory(cat, btn) {
   currentCategory = cat;
