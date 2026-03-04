@@ -134,6 +134,24 @@
   .meta-chip { background:rgba(0,255,136,0.06); border:1px solid var(--border); color:#5a8a6a; font-size:11px; padding:3px 10px; border-radius:20px; display:inline-block; }
   .meta-chip strong { color:#aad4bb; }
 
+  /* CATEGORY FILTER */
+  .category-bar { display:flex; gap:6px; margin-bottom:14px; }
+  .cat-btn {
+    font-family:'Segoe UI',system-ui,monospace;
+    font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase;
+    padding:10px 28px;
+    background:var(--surface); border:1px solid var(--border); border-radius:8px;
+    color:var(--muted); cursor:pointer; transition:all 0.2s;
+  }
+  .cat-btn:hover { background:rgba(0,255,136,0.03); color:var(--text); }
+  .cat-btn.active { border-color:var(--green); color:var(--green); background:rgba(0,255,136,0.06); box-shadow:0 0 15px rgba(0,255,136,0.15); }
+
+  /* PLACEHOLDER */
+  .placeholder { padding:60px 40px; text-align:center; }
+  .placeholder .icon { font-size:48px; margin-bottom:16px; }
+  .placeholder h3 { font-size:20px; font-weight:800; color:#fff; margin-bottom:8px; }
+  .placeholder p { font-size:13px; color:var(--muted); max-width:500px; margin:0 auto; line-height:1.6; }
+
   /* FOOTER */
   .footer { text-align:center; padding:20px; font-size:10px; color:#1a3a2a; letter-spacing:1px; border-top:1px solid var(--border); margin-top:8px; }
 
@@ -158,16 +176,33 @@
       <div class="header-date">INTERNAL USE ONLY · FEBRUARY 2026</div>
     </div>
     <h1>Competitor <span>Battle Cards</span></h1>
-    <div class="header-sub">5 PSA competitors · Discovery questions · Objection handling · Win/loss patterns</div>
+    <div class="header-sub">11 competitors · MSP & Integrator verticals · Discovery questions · Objection handling</div>
   </div>
 
-  <div class="tab-bar">
-    <button class="tab-btn active" onclick="showTab('cw',this)"><span class="tab-dot" style="background:var(--cyan);box-shadow:0 0 6px var(--cyan)"></span>ConnectWise</button>
-    <button class="tab-btn" onclick="showTab('at',this)"><span class="tab-dot" style="background:var(--red);box-shadow:0 0 6px var(--red)"></span>Autotask</button>
-    <button class="tab-btn" onclick="showTab('hp',this)"><span class="tab-dot" style="background:var(--purple);box-shadow:0 0 6px var(--purple)"></span>HaloPSA</button>
-    <button class="tab-btn" onclick="showTab('sy',this)"><span class="tab-dot" style="background:var(--orange);box-shadow:0 0 6px var(--orange)"></span>Syncro</button>
-    <button class="tab-btn" onclick="showTab('so',this)"><span class="tab-dot" style="background:var(--yellow);box-shadow:0 0 6px var(--yellow)"></span>SuperOps</button>
-    <button class="tab-btn" onclick="showTab('qr',this)"><span class="tab-dot" style="background:var(--green);box-shadow:0 0 6px var(--green)"></span>Quick Ref</button>
+  <div class="category-bar">
+    <button class="cat-btn active" onclick="showCategory('msp',this)">MSP</button>
+    <button class="cat-btn" onclick="showCategory('integrator',this)">Integrator</button>
+  </div>
+
+  <div id="cat-msp">
+    <div class="tab-bar" id="msp-tabs">
+      <button class="tab-btn active" onclick="showTab('cw',this,'msp-tabs')"><span class="tab-dot" style="background:var(--cyan);box-shadow:0 0 6px var(--cyan)"></span>ConnectWise</button>
+      <button class="tab-btn" onclick="showTab('at',this,'msp-tabs')"><span class="tab-dot" style="background:var(--red);box-shadow:0 0 6px var(--red)"></span>Autotask</button>
+      <button class="tab-btn" onclick="showTab('hp',this,'msp-tabs')"><span class="tab-dot" style="background:var(--purple);box-shadow:0 0 6px var(--purple)"></span>HaloPSA</button>
+      <button class="tab-btn" onclick="showTab('sy',this,'msp-tabs')"><span class="tab-dot" style="background:var(--orange);box-shadow:0 0 6px var(--orange)"></span>Syncro</button>
+      <button class="tab-btn" onclick="showTab('so',this,'msp-tabs')"><span class="tab-dot" style="background:var(--yellow);box-shadow:0 0 6px var(--yellow)"></span>SuperOps</button>
+      <button class="tab-btn" onclick="showTab('qr',this,'msp-tabs')"><span class="tab-dot" style="background:var(--green);box-shadow:0 0 6px var(--green)"></span>Quick Ref</button>
+    </div>
+
+  <div id="cat-integrator" style="display:none">
+    <div class="tab-bar" id="int-tabs">
+      <button class="tab-btn active" onclick="showTab('sendona',this,'int-tabs')"><span class="tab-dot" style="background:var(--cyan);box-shadow:0 0 6px var(--cyan)"></span>Sendona</button>
+      <button class="tab-btn" onclick="showTab('workhorse',this,'int-tabs')"><span class="tab-dot" style="background:var(--red);box-shadow:0 0 6px var(--red)"></span>Workhorse</button>
+      <button class="tab-btn" onclick="showTab('jobber',this,'int-tabs')"><span class="tab-dot" style="background:var(--purple);box-shadow:0 0 6px var(--purple)"></span>Jobber</button>
+      <button class="tab-btn" onclick="showTab('simpro',this,'int-tabs')"><span class="tab-dot" style="background:var(--orange);box-shadow:0 0 6px var(--orange)"></span>Simpro</button>
+      <button class="tab-btn" onclick="showTab('prox360',this,'int-tabs')"><span class="tab-dot" style="background:var(--yellow);box-shadow:0 0 6px var(--yellow)"></span>Prox360</button>
+      <button class="tab-btn" onclick="showTab('alarmbiller',this,'int-tabs')"><span class="tab-dot" style="background:var(--green);box-shadow:0 0 6px var(--green)"></span>Alarmbiller</button>
+    </div>
   </div>
 
   <!-- ═══════ CONNECTWISE ═══════ -->
@@ -549,15 +584,85 @@
 
 </div>
 
-<div class="footer">REV.IO SALES ENABLEMENT · FEBRUARY 2026 · GENERATED BY ROBIN 🦸🏻‍♂️</div>
+  <!-- ═══════ INTEGRATOR PLACEHOLDERS ═══════ -->
+  <div id="sendona" class="tab-panel">
+    <div class="summary-bar">
+      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--cyan);text-shadow:0 0 15px rgba(0,229,255,0.4)">Sendona</div><div class="sum-sub">Integrator vertical</div></div>
+      <div class="sum-item"><div class="sum-label">Status</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">PENDING</div><div class="sum-sub">Research in progress</div></div>
+    </div>
+    <div class="section-card"><div class="placeholder"><div class="icon">🔍</div><h3>Sendona</h3><p>Battle card coming soon. Send competitor intel, pricing info, or customer feedback to Robin and this card will be populated with full analysis.</p></div></div>
+  </div>
+
+  <div id="workhorse" class="tab-panel">
+    <div class="summary-bar">
+      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--red);text-shadow:0 0 15px rgba(255,68,68,0.4)">Workhorse</div><div class="sum-sub">Integrator vertical</div></div>
+      <div class="sum-item"><div class="sum-label">Status</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">PENDING</div><div class="sum-sub">Research in progress</div></div>
+    </div>
+    <div class="section-card"><div class="placeholder"><div class="icon">🔍</div><h3>Workhorse</h3><p>Battle card coming soon. Send competitor intel, pricing info, or customer feedback to Robin and this card will be populated with full analysis.</p></div></div>
+  </div>
+
+  <div id="jobber" class="tab-panel">
+    <div class="summary-bar">
+      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--purple);text-shadow:0 0 15px rgba(191,90,242,0.4)">Jobber</div><div class="sum-sub">Integrator vertical</div></div>
+      <div class="sum-item"><div class="sum-label">Status</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">PENDING</div><div class="sum-sub">Research in progress</div></div>
+    </div>
+    <div class="section-card"><div class="placeholder"><div class="icon">🔍</div><h3>Jobber</h3><p>Battle card coming soon. Send competitor intel, pricing info, or customer feedback to Robin and this card will be populated with full analysis.</p></div></div>
+  </div>
+
+  <div id="simpro" class="tab-panel">
+    <div class="summary-bar">
+      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--orange);text-shadow:0 0 15px rgba(255,107,53,0.4)">Simpro</div><div class="sum-sub">Integrator vertical</div></div>
+      <div class="sum-item"><div class="sum-label">Status</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">PENDING</div><div class="sum-sub">Research in progress</div></div>
+    </div>
+    <div class="section-card"><div class="placeholder"><div class="icon">🔍</div><h3>Simpro</h3><p>Battle card coming soon. Send competitor intel, pricing info, or customer feedback to Robin and this card will be populated with full analysis.</p></div></div>
+  </div>
+
+  <div id="prox360" class="tab-panel">
+    <div class="summary-bar">
+      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val" style="color:var(--yellow);text-shadow:0 0 15px rgba(255,215,0,0.4)">Prox360</div><div class="sum-sub">Integrator vertical</div></div>
+      <div class="sum-item"><div class="sum-label">Status</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">PENDING</div><div class="sum-sub">Research in progress</div></div>
+    </div>
+    <div class="section-card"><div class="placeholder"><div class="icon">🔍</div><h3>Prox360</h3><p>Battle card coming soon. Send competitor intel, pricing info, or customer feedback to Robin and this card will be populated with full analysis.</p></div></div>
+  </div>
+
+  <div id="alarmbiller" class="tab-panel">
+    <div class="summary-bar">
+      <div class="sum-item"><div class="sum-label">Competitor</div><div class="sum-val green">Alarmbiller</div><div class="sum-sub">Integrator vertical</div></div>
+      <div class="sum-item"><div class="sum-label">Status</div><div class="sum-val" style="font-size:14px;color:var(--yellow)">PENDING</div><div class="sum-sub">Research in progress</div></div>
+    </div>
+    <div class="section-card"><div class="placeholder"><div class="icon">🔍</div><h3>Alarmbiller</h3><p>Battle card coming soon. Send competitor intel, pricing info, or customer feedback to Robin and this card will be populated with full analysis.</p></div></div>
+  </div>
+
+</div>
+
+<div class="footer">REV.IO SALES ENABLEMENT · MARCH 2026 · GENERATED BY ROBIN 🦸🏻‍♂️</div>
 
 <script>
-function showTab(id, btn) {
+var currentCategory = 'msp';
+var defaultTabs = { msp: 'cw', integrator: 'sendona' };
+
+function showCategory(cat, btn) {
+  currentCategory = cat;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('cat-msp').style.display = cat === 'msp' ? '' : 'none';
+  document.getElementById('cat-integrator').style.display = cat === 'integrator' ? '' : 'none';
+  // Show default tab for this category
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(defaultTabs[cat]).classList.add('active');
+  // Activate first tab button
+  var tabBar = document.getElementById(cat === 'msp' ? 'msp-tabs' : 'int-tabs');
+  tabBar.querySelectorAll('.tab-btn').forEach((b,i) => { b.classList.toggle('active', i === 0); });
+}
+
+function showTab(id, btn, barId) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(barId).querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
+  defaultTabs[currentCategory] = id;
 }
+
 function toggle(header) {
   header.classList.toggle('collapsed');
   header.nextElementSibling.classList.toggle('collapsed');
