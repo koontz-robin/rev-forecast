@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rev.io PSA — Competitor Battle Cards</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rajdhani', 'Calibri', sans-serif;
+    background: #0a0f1a;
+    color: #e0e8f0;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .header {
+    text-align: center;
+    padding: 30px 20px 0;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .header h1 {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 2.2em;
+    color: #4CC94C;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 0 0 20px rgba(76, 201, 76, 0.4);
+  }
+
+  .header .subtitle {
+    color: #6a7a8a;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8em;
+    letter-spacing: 2px;
+    margin-top: 6px;
+  }
+
+  /* Tabs */
+  .tab-bar {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 25px 20px 0;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .tab-btn {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: 0.95em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 22px;
+    background: #1B2E4A;
+    color: #8a9ab0;
+    border: 1px solid #2a4060;
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .tab-btn:hover {
+    background: #243a58;
+    color: #c0d0e0;
+  }
+
+  .tab-btn.active {
+    background: #0d1520;
+    color: #4CC94C;
+    border-color: #4CC94C;
+    border-bottom: 2px solid #0d1520;
+    text-shadow: 0 0 10px rgba(76, 201, 76, 0.3);
+  }
+
+  .tab-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+  }
+
+  .tab-panel {
+    display: none;
+    background: #0d1520;
+    border: 1px solid #2a4060;
+    border-radius: 0 6px 6px 6px;
+    padding: 30px;
+    animation: fadeIn 0.3s;
+  }
+
+  .tab-panel.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Section headers inside panels */
+  .section-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 1.3em;
+    color: #4CC94C;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-left: 4px solid #4CC94C;
+    padding: 6px 0 6px 12px;
+    margin: 35px 0 15px;
+    background: linear-gradient(90deg, rgba(76,201,76,0.08), transparent);
+  }
+
+  .section-title:first-child {
+    margin-top: 0;
+  }
+
+  /* Competitor name banner */
+  .competitor-banner {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 1.8em;
+    color: #fff;
+    margin-bottom: 5px;
+  }
+
+  .competitor-meta {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8em;
+    color: #6a7a8a;
+    margin-bottom: 25px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0 20px;
+    font-size: 0.93em;
+  }
+
+  th {
+    background: #1B2E4A;
+    color: #4CC94C;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: 0.95em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 11px 14px;
+    text-align: left;
+    border: 1px solid #2a4060;
+    position: sticky;
+    top: 0;
+  }
+
+  td {
+    padding: 10px 14px;
+    border: 1px solid #1a2a40;
+    background: #0d1520;
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td { background: #111d2e; }
+  tr:hover td { background: rgba(76, 201, 76, 0.05); }
+  td strong { color: #7ad67a; }
+  em { color: #6a7a8a; font-style: italic; }
+
+  /* Quick ref tab */
+  .quick-ref-card {
+    background: #111d2e;
+    border: 1px solid #2a4060;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px 0;
+  }
+
+  .quick-ref-card h4 {
+    color: #4CC94C;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .quick-ref-card p {
+    color: #c0d0e0;
+    font-size: 0.95em;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .tab-btn { font-size: 0.8em; padding: 8px 14px; }
+    .tab-panel { padding: 20px 15px; }
+    table { font-size: 0.85em; }
+    th, td { padding: 8px 10px; }
+    .header h1 { font-size: 1.6em; }
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: #0a0f1a; }
+  ::-webkit-scrollbar-thumb { background: #1B2E4A; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #4CC94C; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Rev.io PSA — Competitor Battle Cards</h1>
+  <div class="subtitle">// INTERNAL USE ONLY — REV.IO SALES ENABLEMENT // FEBRUARY 2026 //</div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showTab('connectwise')">ConnectWise</button>
+  <button class="tab-btn" onclick="showTab('autotask')">Autotask</button>
+  <button class="tab-btn" onclick="showTab('halopsa')">HaloPSA</button>
+  <button class="tab-btn" onclick="showTab('syncro')">Syncro</button>
+  <button class="tab-btn" onclick="showTab('superops')">SuperOps</button>
+  <button class="tab-btn" onclick="showTab('quickref')">Quick Ref</button>
+</div>
+
+<div class="tab-content">
+
+<!-- ════════════ CONNECTWISE ════════════ -->
+<div id="connectwise" class="tab-panel active">
+  <div class="competitor-banner">ConnectWise PSA</div>
+  <div class="competitor-meta">Founded 1982 · Tampa, FL · ~40,000+ MSP partners · formerly ConnectWise Manage</div>
+
+  <div class="section-title">Overview</div>
+  <table>
+  <tr><th>Section</th><th>Details</th></tr>
+  <tr><td><strong>Overview</strong></td><td>The 800-lb gorilla of the MSP PSA market. Comprehensive platform with deep ecosystem of integrations (Automate RMM, Sell, Control). Acquired by Thoma Bravo (PE) in 2019. Known for breadth but also complexity, aggressive contracts, and slow innovation.</td></tr>
+  <tr><td><strong>Target Market</strong></td><td>SMB to mid-market MSPs (sweet spot: 15–100+ technicians), primarily managed IT focused</td></tr>
+  <tr><td><strong>Pricing</strong></td><td>Quote-based, ~$89–$125/user/month. Multi-year contracts heavily pushed. Add-ons for many features.</td></tr>
+  <tr><td><strong>Key Products</strong></td><td>ConnectWise PSA, Automate (RMM), Control (remote access), Sell (CPQ), Sidekick (AI), BCDR</td></tr>
+  </table>
+
+  <div class="section-title">Strengths vs. Weaknesses</div>
+  <table>
+  <tr><th>Strengths</th><th>Weaknesses</th></tr>
+  <tr><td>Largest MSP ecosystem — most third-party integrations</td><td>Aggressive lock-in contracts (multi-year, auto-renew, difficult to exit)</td></tr>
+  <tr><td>Deep functionality — covers nearly every MSP workflow</td><td>Bloated and complex UI — steep learning curve, feels outdated</td></tr>
+  <tr><td>Strong community (IT Nation, peer groups)</td><td>Billing module is basic — no native usage-based or complex recurring billing</td></tr>
+  <tr><td>Mature product with long track record</td><td>Over-promises, under-delivers on new features (Asio/Sidekick still in preview)</td></tr>
+  <tr><td>ConnectWise Sell provides quoting/CPQ</td><td>No integrated payment processing — requires third-party</td></tr>
+  <tr><td>Large partner network and training resources</td><td>ScreenConnect vulnerability in 2024 was high-profile security concern</td></tr>
+  <tr><td></td><td>Pricing increased significantly; nickel-and-dime add-on model</td></tr>
+  </table>
+
+  <div class="section-title">Feature Comparison</div>
+  <table>
+  <tr><th>Capability</th><th>Rev.io</th><th>ConnectWise PSA</th></tr>
+  <tr><td>Complex billing (recurring + usage + one-time)</td><td>✅ Native — purpose-built for telecom/multi-service</td><td>❌ Basic time & materials only; no usage-based</td></tr>
+  <tr><td>Integrated payment processing</td><td>✅ Rev.io Payments (TRX Services)</td><td>❌ Requires third-party (ConnectBooster, etc.)</td></tr>
+  <tr><td>Quote-to-cash automation</td><td>✅ End-to-end: quote → contract → billing → payment</td><td>⚠️ Partial — Sell is separate product/cost</td></tr>
+  <tr><td>Multi-service support (IT + VoIP + internet)</td><td>✅ Built for bundled services</td><td>❌ IT-only; no telecom billing</td></tr>
+  <tr><td>Ticketing & service desk</td><td>✅ Full ticketing, SLAs, dispatch</td><td>✅ Mature and deep</td></tr>
+  <tr><td>Project management</td><td>✅ Included</td><td>✅ Included</td></tr>
+  <tr><td>CRM / sales pipeline</td><td>✅ Included</td><td>⚠️ Basic — Sell is separate</td></tr>
+  <tr><td>RMM integration</td><td>⚠️ Third-party RMMs</td><td>✅ Native (Automate)</td></tr>
+  <tr><td>Inventory & asset management</td><td>✅ With supply chain tracking</td><td>✅ Procurement module</td></tr>
+  <tr><td>Ease of implementation</td><td>✅ Modern, faster deployment</td><td>❌ Notoriously long and complex</td></tr>
+  </table>
+
+  <div class="section-title">Discovery Questions (Landmines)</div>
+  <table>
+  <tr><th>Questions</th></tr>
+  <tr><td>1. "How are you currently billing for non-managed-IT services like VoIP, internet, or cloud? Is that in your PSA or a separate system?"</td></tr>
+  <tr><td>2. "What does your payment collection process look like? How many days does it take from invoice to cash?"</td></tr>
+  <tr><td>3. "How much are you spending on ConnectWise add-ons (Sell, ConnectBooster, etc.) on top of your PSA license?"</td></tr>
+  <tr><td>4. "If you wanted to add a new recurring service with usage-based billing, how would you handle that today?"</td></tr>
+  <tr><td>5. "How confident are you that you could exit your ConnectWise contract if you found a better solution?"</td></tr>
+  <tr><td>6. "How many hours per month does your team spend on billing reconciliation across multiple systems?"</td></tr>
+  </table>
+
+  <div class="section-title">Why We Win / Why We Lose</div>
+  <table>
+  <tr><th>Why We Win</th><th>Why We Lose</th></tr>
+  <tr><td>MSPs adding telecom/VoIP/internet need billing CW can't do</td><td>Deeply embedded CW ecosystem — switching cost is enormous</td></tr>
+  <tr><td>Integrated payments eliminate ConnectBooster cost</td><td>CW's massive integration marketplace</td></tr>
+  <tr><td>Single platform for quote-to-cash vs. fragmented suite</td><td>"Nobody gets fired for buying ConnectWise" mentality</td></tr>
+  <tr><td>Faster implementation and modern UX</td><td>Large MSPs (100+ techs) may want CW's PM depth</td></tr>
+  <tr><td>No predatory contract terms</td><td>IT Nation community creates social lock-in</td></tr>
+  </table>
+
+  <div class="section-title">Objection Handling</div>
+  <table>
+  <tr><th>Objection</th><th>Response</th></tr>
+  <tr><td>"ConnectWise has the most integrations"</td><td>"Integrations matter, but how many do you actually use? Rev.io gives you billing, payments, and quoting natively — that's 2-3 fewer integrations to manage and pay for."</td></tr>
+  <tr><td>"We've been on ConnectWise for years"</td><td>"That's exactly why they can charge what they charge. How much are you spending on add-ons, and what's the cost of NOT being able to bill for new services? We offer guided migration and parallel transition."</td></tr>
+  <tr><td>"ConnectWise is the industry standard"</td><td>"It's the standard for pure-play managed IT. But you're not just doing managed IT anymore. When you add VoIP, internet, or cloud, you need a platform built for that complexity."</td></tr>
+  </table>
+
+  <div class="section-title">Win Stories & Resources</div>
+  <table>
+  <tr><th>Notes</th></tr>
+  <tr><td><em>[Internal: Document wins where customers migrated from CW to Rev.io. Focus on: reduced billing complexity, faster payment collection, new service lines. Reference Fuse.Cloud.]</em></td></tr>
+  <tr><td><em>[Internal: Link to comparison page, ROI calculator, migration guide, case studies, CW contract exit playbook.]</em></td></tr>
+  </table>
+</div>
+
+<!-- ════════════ AUTOTASK ════════════ -->
+<div id="autotask" class="tab-panel">
+  <div class="competitor-banner">Datto Autotask PSA</div>
+  <div class="competitor-meta">Founded 2001 · Kaseya HQ: Miami, FL · ~10,000+ MSPs · Acquired by Kaseya 2022 ($6.2B)</div>
+
+  <div class="section-title">Overview</div>
+  <table>
+  <tr><th>Section</th><th>Details</th></tr>
+  <tr><td><strong>Overview</strong></td><td>Cloud-native PSA built for MSPs. Acquired by Datto (2019), then Kaseya (2022) for $6.2B. Strong integration with Datto RMM and IT Glue. Under Kaseya, focus shifted to bundling and aggressive sales tactics.</td></tr>
+  <tr><td><strong>Target Market</strong></td><td>SMB MSPs (10–75 technicians), pure managed IT providers</td></tr>
+  <tr><td><strong>Pricing</strong></td><td>~$65–$125/user/month, tiered (Essentials, Premium, Ultimate). Multi-year contracts pushed aggressively post-Kaseya.</td></tr>
+  <tr><td><strong>Key Products</strong></td><td>Autotask PSA, Datto RMM, IT Glue, Datto BCDR, Datto Networking, Kaseya 365 bundle</td></tr>
+  </table>
+
+  <div class="section-title">Strengths vs. Weaknesses</div>
+  <table>
+  <tr><th>Strengths</th><th>Weaknesses</th></tr>
+  <tr><td>Cloud-native — reliable, no on-prem to maintain</td><td>Post-Kaseya: support quality has declined</td></tr>
+  <tr><td>Tight integration with Datto RMM + IT Glue</td><td>UI feels dated and slow</td></tr>
+  <tr><td>Solid ticketing and workflow automation</td><td>Billing is basic — no usage-based or telecom billing</td></tr>
+  <tr><td>Good reporting and dashboards</td><td>Aggressive contract and renewal practices</td></tr>
+  <tr><td>Kaseya 365 bundle can be cost-effective</td><td>Limited flexibility for non-IT services</td></tr>
+  <tr><td></td><td>Innovation slowed under Kaseya ownership</td></tr>
+  </table>
+
+  <div class="section-title">Feature Comparison</div>
+  <table>
+  <tr><th>Capability</th><th>Rev.io</th><th>Autotask PSA</th></tr>
+  <tr><td>Complex billing</td><td>✅ Native telecom-grade</td><td>❌ Basic; no usage-based</td></tr>
+  <tr><td>Integrated payments</td><td>✅ Rev.io Payments (TRX)</td><td>❌ Requires third-party</td></tr>
+  <tr><td>Quote-to-cash</td><td>✅ Full lifecycle</td><td>⚠️ Limited quoting; no payment integration</td></tr>
+  <tr><td>Multi-service support</td><td>✅ IT + VoIP + internet + cloud</td><td>❌ IT-only workflows</td></tr>
+  <tr><td>Ticketing</td><td>✅ Full featured</td><td>✅ Mature — strongest area</td></tr>
+  <tr><td>Project management</td><td>✅ Included</td><td>✅ Solid</td></tr>
+  <tr><td>CRM</td><td>✅ Included</td><td>✅ Basic CRM/opportunity</td></tr>
+  <tr><td>RMM</td><td>⚠️ Third-party</td><td>✅ Native (Datto RMM)</td></tr>
+  <tr><td>IT documentation</td><td>⚠️ Third-party</td><td>✅ Native (IT Glue)</td></tr>
+  <tr><td>Contract management</td><td>✅ Complex multi-billing</td><td>⚠️ Standard only</td></tr>
+  </table>
+
+  <div class="section-title">Discovery Questions (Landmines)</div>
+  <table>
+  <tr><th>Questions</th></tr>
+  <tr><td>1. "Since the Kaseya acquisition, have you noticed any changes in support quality or pricing?"</td></tr>
+  <tr><td>2. "How do you handle billing for services beyond standard managed IT — VoIP, bandwidth, per-user cloud?"</td></tr>
+  <tr><td>3. "Are you locked into a Kaseya bundle, and do you actually use all the products?"</td></tr>
+  <tr><td>4. "What's your process for collecting payments? How automated is it?"</td></tr>
+  <tr><td>5. "If a prospect wants IT support + VoIP + internet on one invoice, how do you produce that today?"</td></tr>
+  </table>
+
+  <div class="section-title">Why We Win / Why We Lose</div>
+  <table>
+  <tr><th>Why We Win</th><th>Why We Lose</th></tr>
+  <tr><td>MSPs adding services beyond IT can't bill in Autotask</td><td>Datto/Kaseya ecosystem is sticky</td></tr>
+  <tr><td>Integrated payments vs. none</td><td>Autotask's ticketing is very mature</td></tr>
+  <tr><td>No Kaseya-style contract traps</td><td>Kaseya 365 bundle pricing hard to beat per-unit</td></tr>
+  <tr><td>Modern platform vs. aging UI</td><td>IT-only MSPs don't need Rev.io's billing</td></tr>
+  <tr><td>Quote-to-cash eliminates reconciliation</td><td></td></tr>
+  </table>
+
+  <div class="section-title">Objection Handling</div>
+  <table>
+  <tr><th>Objection</th><th>Response</th></tr>
+  <tr><td>"We're locked into Kaseya 365"</td><td>"That's exactly the lock-in Kaseya designed. But can Autotask bill for your growing VoIP or cloud business? Run the numbers on billing leakage and manual work."</td></tr>
+  <tr><td>"Autotask works fine for ticketing"</td><td>"Ticketing is table stakes. Can your PSA also handle complex billing, payments, and multi-service quoting? That's where real revenue impact is."</td></tr>
+  <tr><td>"Datto RMM integration is critical"</td><td>"Rev.io integrates with leading RMMs. You don't give up your RMM — you gain a billing and payments engine Autotask will never have."</td></tr>
+  </table>
+
+  <div class="section-title">Win Stories & Resources</div>
+  <table>
+  <tr><th>Notes</th></tr>
+  <tr><td><em>[Internal: Document Autotask migration wins. Highlight Kaseya frustration as trigger, billing limitations as pain, revenue uplift from new services.]</em></td></tr>
+  <tr><td><em>[Internal: Link to comparison, Kaseya contract analysis guide, migration playbook, case studies.]</em></td></tr>
+  </table>
+</div>
+
+<!-- ════════════ HALOPSA ════════════ -->
+<div id="halopsa" class="tab-panel">
+  <div class="competitor-banner">HaloPSA</div>
+  <div class="competitor-meta">Founded 1994 · Stowmarket, UK · ~3,000–5,000 MSPs · The "anti-ConnectWise"</div>
+
+  <div class="section-title">Overview</div>
+  <table>
+  <tr><th>Section</th><th>Details</th></tr>
+  <tr><td><strong>Overview</strong></td><td>UK-based PSA gaining significant traction as a modern alternative. All-inclusive pricing, clean UI, rapid feature development. Popular with MSPs migrating away from legacy PSAs.</td></tr>
+  <tr><td><strong>Target Market</strong></td><td>SMB to mid-market MSPs globally (5–100 technicians); strong UK/EU, growing in NA</td></tr>
+  <tr><td><strong>Pricing</strong></td><td>~$109–$119/agent/month small teams, ~$69/agent for larger. All features included — no tiers or add-ons.</td></tr>
+  <tr><td><strong>Key Products</strong></td><td>HaloPSA (MSP), HaloITSM (internal IT), HaloCRM</td></tr>
+  </table>
+
+  <div class="section-title">Strengths vs. Weaknesses</div>
+  <table>
+  <tr><th>Strengths</th><th>Weaknesses</th></tr>
+  <tr><td>All-inclusive pricing — no hidden costs</td><td>No native complex billing (no usage-based, telecom)</td></tr>
+  <tr><td>Modern, clean UI — best-in-class UX</td><td>No integrated payment processing</td></tr>
+  <tr><td>Rapid feature development</td><td>UK-based — timezone support challenges for NA</td></tr>
+  <tr><td>Strong integrations (RMMs, M365, IT Glue)</td><td>Smaller company — less brand recognition</td></tr>
+  <tr><td>AI features included at no extra cost</td><td>Reporting complex to configure</td></tr>
+  <tr><td>On-premise option available</td><td>Still maturing vs. 20+ year incumbents</td></tr>
+  <tr><td>Highly customizable workflows</td><td>Asset/inventory management less robust</td></tr>
+  </table>
+
+  <div class="section-title">Feature Comparison</div>
+  <table>
+  <tr><th>Capability</th><th>Rev.io</th><th>HaloPSA</th></tr>
+  <tr><td>Complex billing</td><td>✅ Native telecom-grade</td><td>❌ Basic invoicing only</td></tr>
+  <tr><td>Integrated payments</td><td>✅ Rev.io Payments (TRX)</td><td>❌ Stripe/GoCardless only</td></tr>
+  <tr><td>Quote-to-cash</td><td>✅ Full automation</td><td>⚠️ Quoting but no payment automation</td></tr>
+  <tr><td>Multi-service support</td><td>✅ IT + telecom + cloud</td><td>❌ IT-focused only</td></tr>
+  <tr><td>Ticketing</td><td>✅ Full featured</td><td>✅ Excellent — modern + AI</td></tr>
+  <tr><td>Project management</td><td>✅ Included</td><td>✅ Good</td></tr>
+  <tr><td>All-inclusive pricing</td><td>⚠️ Contact for pricing</td><td>✅ Transparent, all included</td></tr>
+  <tr><td>UI/UX</td><td>✅ Modern</td><td>✅ Often cited as best PSA UI</td></tr>
+  <tr><td>On-premise</td><td>❌ Cloud only</td><td>✅ Available</td></tr>
+  <tr><td>Customizability</td><td>✅ Configurable</td><td>✅ Highly customizable</td></tr>
+  </table>
+
+  <div class="section-title">Discovery Questions (Landmines)</div>
+  <table>
+  <tr><th>Questions</th></tr>
+  <tr><td>1. "HaloPSA is great for ticketing — but how are you handling billing for bundled services with usage-based components?"</td></tr>
+  <tr><td>2. "When you invoice for managed IT + VoIP + internet, how many systems are involved?"</td></tr>
+  <tr><td>3. "How do you process payments? Is it automated from invoice to collection?"</td></tr>
+  <tr><td>4. "If you need to rate CDRs or bandwidth for billing, how would you do that?"</td></tr>
+  <tr><td>5. "As you scale beyond pure managed IT, does HaloPSA grow with you?"</td></tr>
+  </table>
+
+  <div class="section-title">Why We Win / Why We Lose</div>
+  <table>
+  <tr><th>Why We Win</th><th>Why We Lose</th></tr>
+  <tr><td>Multi-service MSPs need billing HaloPSA doesn't have</td><td>HaloPSA's UI/UX is genuinely best-in-class</td></tr>
+  <tr><td>Integrated payments vs. none</td><td>Transparent all-inclusive pricing is attractive</td></tr>
+  <tr><td>Quote-to-cash for complex bundles</td><td>IT-only MSPs don't need Rev.io's billing</td></tr>
+  <tr><td>Single invoice for IT + telecom + cloud</td><td>Strong momentum and goodwill</td></tr>
+  <tr><td>Purpose-built for revenue ops</td><td>Rapid development closes feature gaps quickly</td></tr>
+  </table>
+
+  <div class="section-title">Objection Handling</div>
+  <table>
+  <tr><th>Objection</th><th>Response</th></tr>
+  <tr><td>"HaloPSA has best UI and all features"</td><td>"'All features included' doesn't include complex billing for multi-service revenue. That's not a roadmap item for them — it's our DNA."</td></tr>
+  <tr><td>"HaloPSA is cheaper"</td><td>"Compare total cost: HaloPSA + billing system + payment processor + reconciliation labor. Rev.io replaces all of that."</td></tr>
+  <tr><td>"We just switched from ConnectWise"</td><td>"Smart move for ticketing. But as you add VoIP or cloud, you'll hit the same billing wall. Rev.io is your revenue engine when you're ready."</td></tr>
+  </table>
+
+  <div class="section-title">Win Stories & Resources</div>
+  <table>
+  <tr><th>Notes</th></tr>
+  <tr><td><em>[Internal: Document wins against HaloPSA. Focus on MSPs that outgrew HaloPSA's billing when they added telecom/cloud.]</em></td></tr>
+  <tr><td><em>[Internal: Link to comparison, billing complexity assessment, case studies.]</em></td></tr>
+  </table>
+</div>
+
+<!-- ════════════ SYNCRO ════════════ -->
+<div id="syncro" class="tab-panel">
+  <div class="competitor-banner">Syncro</div>
+  <div class="competitor-meta">Founded 2017 · Seattle, WA · ~5,000–8,000 MSPs · The "anti-complexity" RMM+PSA</div>
+
+  <div class="section-title">Overview</div>
+  <table>
+  <tr><th>Section</th><th>Details</th></tr>
+  <tr><td><strong>Overview</strong></td><td>Combined RMM + PSA for small to mid-size MSPs. Simple, transparent pricing, easy to use. Good for smaller MSPs but lacks depth for multi-service providers.</td></tr>
+  <tr><td><strong>Target Market</strong></td><td>Small MSPs and IT teams (1–25 techs); break-fix shops transitioning to managed services</td></tr>
+  <tr><td><strong>Pricing</strong></td><td>Core: $129/user/month (annual) or $139 (monthly). Team: $179/$189. Unlimited endpoints. No contracts.</td></tr>
+  <tr><td><strong>Key Products</strong></td><td>Syncro XMM (unified RMM + PSA + M365 management)</td></tr>
+  </table>
+
+  <div class="section-title">Strengths vs. Weaknesses</div>
+  <table>
+  <tr><th>Strengths</th><th>Weaknesses</th></tr>
+  <tr><td>Simple, transparent pricing — no contracts</td><td>Limited billing — basic invoicing only</td></tr>
+  <tr><td>Easy setup — fast time to value</td><td>Not built for multi-service providers</td></tr>
+  <tr><td>Combined RMM + PSA</td><td>Lacks depth for larger MSPs</td></tr>
+  <tr><td>Good for small MSPs starting out</td><td>Payments via third-party only</td></tr>
+  <tr><td>50+ integrations</td><td>Reporting is basic</td></tr>
+  <tr><td>Month-to-month flexibility</td><td>Project management minimal</td></tr>
+  <tr><td>AI-powered ticket search</td><td>Scripting-heavy workflows complex for non-technical</td></tr>
+  </table>
+
+  <div class="section-title">Feature Comparison</div>
+  <table>
+  <tr><th>Capability</th><th>Rev.io</th><th>Syncro</th></tr>
+  <tr><td>Complex billing</td><td>✅ Native telecom-grade</td><td>❌ Basic recurring only</td></tr>
+  <tr><td>Integrated payments</td><td>✅ Rev.io Payments (TRX)</td><td>⚠️ Worldpay/Stripe</td></tr>
+  <tr><td>Quote-to-cash</td><td>✅ Full lifecycle</td><td>❌ Basic estimates only</td></tr>
+  <tr><td>Multi-service support</td><td>✅ IT + VoIP + internet + cloud</td><td>❌ Managed IT only</td></tr>
+  <tr><td>Ticketing</td><td>✅ Full featured</td><td>✅ Solid for SMB</td></tr>
+  <tr><td>RMM</td><td>⚠️ Third-party</td><td>✅ Native (unlimited endpoints)</td></tr>
+  <tr><td>Project management</td><td>✅ Included</td><td>❌ Very basic</td></tr>
+  <tr><td>Contract management</td><td>✅ Complex multi-service</td><td>⚠️ Basic recurring</td></tr>
+  <tr><td>Scalability</td><td>✅ Scales with complexity</td><td>❌ Outgrown at 20–30 techs</td></tr>
+  <tr><td>Inventory</td><td>✅ Supply chain tracking</td><td>⚠️ Basic</td></tr>
+  </table>
+
+  <div class="section-title">Discovery Questions (Landmines)</div>
+  <table>
+  <tr><th>Questions</th></tr>
+  <tr><td>1. "Now that you're growing and adding services beyond managed IT, is Syncro keeping up?"</td></tr>
+  <tr><td>2. "How do you bill clients with a mix of per-device, per-user, and usage-based services on one invoice?"</td></tr>
+  <tr><td>3. "When you quote a prospect managed IT + VoIP + cloud, can Syncro handle that?"</td></tr>
+  <tr><td>4. "How much time does your team spend on billing and payment follow-up each month?"</td></tr>
+  <tr><td>5. "Do you feel like you've outgrown Syncro? Where are the pain points?"</td></tr>
+  </table>
+
+  <div class="section-title">Why We Win / Why We Lose</div>
+  <table>
+  <tr><th>Why We Win</th><th>Why We Lose</th></tr>
+  <tr><td>Growing MSPs hit Syncro's ceiling fast</td><td>Simplicity and pricing hard to beat for small IT-only</td></tr>
+  <tr><td>Complex billing and payments built-in</td><td>Syncro includes RMM — Rev.io doesn't</td></tr>
+  <tr><td>Quote-to-cash for multi-service bundles</td><td>Month-to-month flexibility appealing to small shops</td></tr>
+  <tr><td>Rev.io scales as MSP grows</td><td>Under 10 techs don't need Rev.io's power</td></tr>
+  <tr><td>Single system for all revenue ops</td><td>"All-in-one" is simpler for small teams</td></tr>
+  </table>
+
+  <div class="section-title">Objection Handling</div>
+  <table>
+  <tr><th>Objection</th><th>Response</th></tr>
+  <tr><td>"Syncro is simpler and includes RMM"</td><td>"Great for pure IT under 20 techs. But you're growing. Simple becomes limiting when you can't bill for VoIP or automate payment collection. Rev.io is where you graduate to."</td></tr>
+  <tr><td>"Syncro is cheaper"</td><td>"Add up: billing system + payment processor + reconciliation labor. Rev.io consolidates all of that."</td></tr>
+  <tr><td>"Too much effort to switch"</td><td>"The cost of staying on a platform you've outgrown is higher. How much revenue are you leaving on the table?"</td></tr>
+  </table>
+
+  <div class="section-title">Win Stories & Resources</div>
+  <table>
+  <tr><th>Notes</th></tr>
+  <tr><td><em>[Internal: Document MSPs that graduated from Syncro when they scaled and added telecom/cloud.]</em></td></tr>
+  <tr><td><em>[Internal: Link to comparison, "Outgrowing Your PSA?" assessment, case studies.]</em></td></tr>
+  </table>
+</div>
+
+<!-- ════════════ SUPEROPS ════════════ -->
+<div id="superops" class="tab-panel">
+  <div class="competitor-banner">SuperOps</div>
+  <div class="competitor-meta">Founded 2020 · Claymont, DE · ~1,500–3,000 MSPs · AI-first, ex-Zoho engineers</div>
+
+  <div class="section-title">Overview</div>
+  <table>
+  <tr><th>Section</th><th>Details</th></tr>
+  <tr><td><strong>Overview</strong></td><td>AI-first, modern PSA+RMM built from scratch by ex-Zoho engineers. Next-gen alternative to legacy tools. Unified platform with Monica AI assistant. Growing fast but still early-stage.</td></tr>
+  <tr><td><strong>Target Market</strong></td><td>SMB to mid-market MSPs (5–50 techs); tech-forward MSPs wanting modern tools</td></tr>
+  <tr><td><strong>Pricing</strong></td><td>Pro: $149/tech. Super: $179. Super Plus: per-endpoint ($2–$3). PSA-only: $89. RMM-only: $109.</td></tr>
+  <tr><td><strong>Key Products</strong></td><td>SuperOps unified platform (PSA + RMM + IT docs + AI), Monica AI assistant</td></tr>
+  </table>
+
+  <div class="section-title">Strengths vs. Weaknesses</div>
+  <table>
+  <tr><th>Strengths</th><th>Weaknesses</th></tr>
+  <tr><td>Modern, AI-native — built from scratch</td><td>Young product — still maturing</td></tr>
+  <tr><td>Unified PSA + RMM + docs</td><td>Small customer base — less proven</td></tr>
+  <tr><td>Monica AI for ticket handling</td><td>No complex billing engine</td></tr>
+  <tr><td>Clean, modern UI</td><td>No integrated payments</td></tr>
+  <tr><td>Flexible pricing incl. per-endpoint</td><td>Limited integration ecosystem</td></tr>
+  <tr><td>Active development</td><td>No telecom/multi-service billing</td></tr>
+  <tr><td>MDM for Apple + Android</td><td>Support inconsistent (small team, India timezone)</td></tr>
+  <tr><td>30% first-year startup discount</td><td>Less mature PM and reporting</td></tr>
+  </table>
+
+  <div class="section-title">Feature Comparison</div>
+  <table>
+  <tr><th>Capability</th><th>Rev.io</th><th>SuperOps</th></tr>
+  <tr><td>Complex billing</td><td>✅ Native telecom-grade</td><td>❌ Basic invoicing only</td></tr>
+  <tr><td>Integrated payments</td><td>✅ Rev.io Payments (TRX)</td><td>❌ None</td></tr>
+  <tr><td>Quote-to-cash</td><td>✅ Full lifecycle</td><td>❌ Basic; no automation</td></tr>
+  <tr><td>Multi-service support</td><td>✅ IT + VoIP + internet + cloud</td><td>❌ IT/MSP only</td></tr>
+  <tr><td>Ticketing</td><td>✅ Full featured</td><td>✅ Modern + AI</td></tr>
+  <tr><td>RMM</td><td>⚠️ Third-party</td><td>✅ Native</td></tr>
+  <tr><td>AI features</td><td>⚠️ Developing</td><td>✅ Monica AI differentiator</td></tr>
+  <tr><td>IT documentation</td><td>⚠️ Third-party</td><td>✅ Built-in</td></tr>
+  <tr><td>MDM</td><td>❌ Not included</td><td>✅ Apple + Android</td></tr>
+  <tr><td>Contract complexity</td><td>✅ Multi-service, usage-based</td><td>⚠️ Standard only</td></tr>
+  </table>
+
+  <div class="section-title">Discovery Questions (Landmines)</div>
+  <table>
+  <tr><th>Questions</th></tr>
+  <tr><td>1. "SuperOps has great AI and RMM — but how are you handling billing beyond flat-rate managed IT?"</td></tr>
+  <tr><td>2. "When you add VoIP or internet, can SuperOps generate a single invoice with usage-based charges?"</td></tr>
+  <tr><td>3. "How mature is SuperOps' reporting for multi-service revenue visibility?"</td></tr>
+  <tr><td>4. "What's your payment collection workflow? How long from invoice to cash?"</td></tr>
+  <tr><td>5. "SuperOps is a startup — how comfortable are you with their long-term viability?"</td></tr>
+  </table>
+
+  <div class="section-title">Why We Win / Why We Lose</div>
+  <table>
+  <tr><th>Why We Win</th><th>Why We Lose</th></tr>
+  <tr><td>Diversifying MSPs need billing SuperOps can't provide</td><td>Unified PSA+RMM+docs+AI is compelling for IT-only</td></tr>
+  <tr><td>Integrated payments — SuperOps has nothing</td><td>Monica AI is genuinely ahead</td></tr>
+  <tr><td>Deep telecom/billing DNA — proven at scale</td><td>Modern UI appeals to legacy-tired MSPs</td></tr>
+  <tr><td>Established company vs. startup risk</td><td>Per-endpoint pricing cheaper for large counts</td></tr>
+  <tr><td>Quote-to-cash for complex bundles</td><td>IT+RMM-only MSPs find SuperOps sufficient</td></tr>
+  </table>
+
+  <div class="section-title">Objection Handling</div>
+  <table>
+  <tr><th>Objection</th><th>Response</th></tr>
+  <tr><td>"Monica AI is amazing"</td><td>"AI for ticket triage is nice, but AI doesn't solve billing. Rev.io automates the entire revenue lifecycle — quoting, complex billing, payment collection."</td></tr>
+  <tr><td>"SuperOps includes RMM + PSA"</td><td>"Great for monitoring + ticketing. But billing, payments, multi-service quoting? You still need separate systems. Rev.io consolidates the revenue side."</td></tr>
+  <tr><td>"SuperOps is the future"</td><td>"Modern UI is great, but your business runs on revenue. Can SuperOps bill for VoIP usage, process payments, single invoice for IT + telecom + cloud? Rev.io can."</td></tr>
+  </table>
+
+  <div class="section-title">Win Stories & Resources</div>
+  <table>
+  <tr><th>Notes</th></tr>
+  <tr><td><em>[Internal: Document wins against SuperOps. MSP chose Rev.io for billing complexity or started with SuperOps and added Rev.io.]</em></td></tr>
+  <tr><td><em>[Internal: Link to comparison, "AI vs. Revenue Automation" paper, case studies.]</em></td></tr>
+  </table>
+</div>
+
+<!-- ════════════ QUICK REF ════════════ -->
+<div id="quickref" class="tab-panel">
+  <div class="competitor-banner">Quick Reference Guide</div>
+  <div class="competitor-meta">Which battle card to pull based on the scenario</div>
+
+  <div class="section-title">Scenario Mapping</div>
+  <table>
+  <tr><th>Scenario</th><th>Primary Competitor</th><th>Key Angle</th></tr>
+  <tr><td>MSP deep in ConnectWise ecosystem, frustrated with costs/contracts</td><td><strong>ConnectWise PSA</strong></td><td>Total cost of ownership; contract flexibility; native billing</td></tr>
+  <tr><td>MSP in Kaseya/Datto stack, concerned about direction</td><td><strong>Autotask PSA</strong></td><td>Post-acquisition quality decline; billing limitations</td></tr>
+  <tr><td>MSP evaluating modern alternatives, loves HaloPSA's UI</td><td><strong>HaloPSA</strong></td><td>"Great for ticketing, but where's the billing?"</td></tr>
+  <tr><td>Small MSP outgrowing their first PSA tool</td><td><strong>Syncro</strong></td><td>Graduation story; scaling beyond IT-only</td></tr>
+  <tr><td>Tech-forward MSP attracted to AI/modern platforms</td><td><strong>SuperOps</strong></td><td>"AI is nice, revenue automation is essential"</td></tr>
+  </table>
+
+  <div class="section-title">Universal Rev.io Differentiators</div>
+  <table>
+  <tr><th>Differentiator</th><th>Why It Matters</th></tr>
+  <tr><td>✅ Native complex billing (recurring + usage + one-time)</td><td>No competitor has telecom-grade billing — this is Rev.io's DNA</td></tr>
+  <tr><td>✅ Integrated payments (TRX Services)</td><td>Every competitor requires third-party payment processing</td></tr>
+  <tr><td>✅ Full quote-to-cash automation</td><td>Single workflow from quote → contract → billing → payment</td></tr>
+  <tr><td>✅ Multi-service provider support</td><td>IT + VoIP + internet + cloud on one platform, one invoice</td></tr>
+  <tr><td>✅ No predatory contracts</td><td>CW and Kaseya are notorious for lock-in — Rev.io isn't</td></tr>
+  </table>
+
+  <div class="section-title">The Rev.io Narrative</div>
+  <div class="quick-ref-card">
+    <h4>For Every Competitor</h4>
+    <p>"[Competitor] is a solid PSA for pure-play managed IT. But the MSP market is evolving — providers are adding VoIP, internet, cloud, and cybersecurity services. When that happens, you need a platform that can bill for complexity, collect payments automatically, and give you a single pane of glass for all revenue. That's Rev.io."</p>
+  </div>
+
+  <div class="quick-ref-card">
+    <h4>The Ideal Rev.io Customer</h4>
+    <p>Multi-service provider (MSP/telecom/cloud) frustrated with billing workarounds, running 2-3 systems for revenue operations, manually reconciling invoices, and losing revenue because they can't easily bill for new services. Think Fuse.Cloud — managed IT + VoIP + internet, all billed through Rev.io.</p>
+  </div>
+</div>
+
+</div><!-- /tab-content -->
+
+<script>
+function showTab(tabId) {
+  // Hide all panels
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  // Deactivate all buttons
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  // Show selected panel
+  document.getElementById(tabId).classList.add('active');
+  // Activate clicked button
+  event.target.classList.add('active');
+  // Scroll to top of content
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
